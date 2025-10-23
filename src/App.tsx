@@ -1,12 +1,7 @@
-import { AllBookmarksPage } from './features/bookmarks';
-import Layout from './shared/components/layout/Layout';
+import { RouterProvider } from './app/providers/RouterProvider';
 
 function App() {
-  return (
-    <Layout>
-      <AllBookmarksPage />
-    </Layout>
-  );
+  return <RouterProvider />;
 }
 
 export default App;

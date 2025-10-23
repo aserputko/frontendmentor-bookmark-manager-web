@@ -16,12 +16,12 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 const items = [
   {
     title: 'Home',
-    url: '#',
+    url: '/bookmarks/all',
     icon: Home,
   },
   {
     title: 'Archived',
-    url: '#',
+    url: '/bookmarks/archived',
     icon: Archive,
   },
 ];

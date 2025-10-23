@@ -1,1 +1,3 @@
-export * from './AllBookmarksPage';
+export * from './AllBookmarks';
+export * from './ArchivedBookmarks';
+export * from './BookmarksPage';
