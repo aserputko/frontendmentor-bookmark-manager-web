@@ -1,0 +1,286 @@
+---
+alwaysApply: true
+---
+
+# Cursor Rules for This Repository
+
+These rules guide the AI inside Cursor when generating, editing, or
+refactoring code in this project.
+
+> **Stack**: React 18 + TypeScript, Vite (or CRA equivalent), Tailwind
+> CSS, shadcn/ui, React Router v6+, TanStack Query v5, Zod, Jest +
+> Testing Library, Storybook 8, Prettier.
+
+---
+
+## 1) General Principles
+
+- **TypeScript-first**: prefer explicit types for public APIs, React
+  components, hooks, and utility functions. Use `strict` mode.
+- **Small, cohesive units**: create small components and hooks with
+  clear responsibilities. Extract logic into hooks or utilities.
+- **DX & UX**: prioritize accessibility (A11y), predictable state,
+  meaningful error boundaries, and helpful empty/loading states.
+- **Idempotent generation**: when editing, update only the relevant
+  files; do not duplicate or create conflicting implementations.
+- **Absolute paths**: use tsconfig path aliases (e.g., `@/components`,
+  `@/lib`, `@/features/*`).
+
+---
+
+## 2) Code Style & Tooling
+
+- **Prettier**: always format output using Prettier defaults. No
+  manual style rules that conflict with Prettier.
+- **ESLint**: follow recommended rules for React, TypeScript, and
+  Testing Library. Do not disable rules globally; use targeted
+  `eslint-disable-next-line` with a rationale.
+- **Naming**:
+  - Components: `PascalCase.tsx` (`UserCard.tsx`).
+  - Hooks: `useSomething.ts`.
+  - Files with a single default export should be named after that
+    export.
+- **Imports**: sort by groups (react, libs, components, local). No
+  unused imports.
+- **CSS**: styling via Tailwind utility classes; avoid custom CSS
+  unless necessary. When needed, use `@/styles/*.css` with PostCSS.
+
+---
+
+## 3) Project Structure (Feature-based)
+
+    src/
+    ├─ app/                         # App shell & wiring
+    │  ├─ main.tsx
+    │  ├─ App.tsx
+    │  ├─ routes.tsx                # Central route config (lazy imports)
+    │  ├─ providers/                # App-level providers
+    │  │  ├─ QueryProvider.tsx
+    │  │  └─ ThemeProvider.tsx
+    │  └─ layout/
+    │     ├─ AppLayout.tsx          # Header/Sidebar/Outlet
+    │     └─ Nav.tsx
+    │
+    ├─ features/
+    │  ├─ bookmarks/
+    │  │  ├─ components/            # UI pieces for this feature
+    │  │  │  ├─ BookmarkList.tsx
+    │  │  │  ├─ BookmarkCard.tsx
+    │  │  │  ├─ BookmarkForm.tsx
+    │  │  │  ├─ TagFilter.tsx
+    │  │  │  └─ SortSelect.tsx
+    │  │  ├─ pages/
+    │  │  │  └─ BookmarksPage.tsx   # List + filter + sort + create/edit/archive
+    │  │  ├─ api/
+    │  │  │  ├─ queries.ts          # useBookmarks, useBookmark
+    │  │  │  └─ mutations.ts        # useCreate, useEdit, useArchive, useDelete
+    │  │  ├─ hooks/
+    │  │  │  └─ useBookmarkFilters.ts
+    │  │  ├─ lib/
+    │  │  │  └─ sort.ts             # recently added/visited, most visited
+    │  │  └─ types.ts               # Bookmark, Tag, Sort enums
+    │  │
+    │  ├─ auth/
+    │  │  ├─ components/
+    │  │  │  ├─ SignInForm.tsx
+    │  │  │  ├─ SignUpForm.tsx
+    │  │  │  └─ ResetPasswordForm.tsx
+    │  │  ├─ pages/
+    │  │  │  ├─ SignInPage.tsx
+    │  │  │  ├─ SignUpPage.tsx
+    │  │  │  └─ ResetPasswordPage.tsx
+    │  │  ├─ api/
+    │  │  │  ├─ queries.ts          # useSession / useMe (optional)
+    │  │  │  └─ mutations.ts        # useSignIn, useSignUp, useResetPassword
+    │  │  ├─ hooks/
+    │  │  │  └─ useAuthGuard.ts     # redirect if not authed
+    │  │  └─ types.ts
+    │  │
+    │  ├─ profile/
+    │  │  ├─ components/
+    │  │  │  ├─ ProfileView.tsx
+    │  │  │  └─ ProfileForm.tsx
+    │  │  ├─ pages/
+    │  │  │  └─ ProfilePage.tsx     # View + Edit
+    │  │  ├─ api/
+    │  │  │  ├─ queries.ts          # useProfile
+    │  │  │  └─ mutations.ts        # useUpdateProfile
+    │  │  └─ types.ts
+    │  │
+    │  └─ settings/
+    │     ├─ components/
+    │     │  └─ ThemeSwitcher.tsx
+    │     ├─ pages/
+    │     │  └─ SettingsPage.tsx
+    │     └─ hooks/
+    │        └─ useTheme.ts         # toggle, persist to localStorage
+    │
+    ├─ shared/                      # Reusable cross-feature stuff
+    │  ├─ components/               # Button, Input, Modal, Switch, EmptyState...
+    │  ├─ api/
+    │  │  ├─ httpClient.ts          # fetch/axios base, interceptors
+    │  │  └─ queryKeys.ts           # central keys, if you prefer
+    │  ├─ hooks/                    # useLocalStorage, useDebounce, etc.
+    │  ├─ lib/                      # small utilities
+    │  ├─ styles/                   # global styles (tailwind.css/index.css)
+    │  └─ types/                    # global types (Result<T>, Paginated<T>, etc.)
+    │
+    ├─ assets/                      # images, icons, fonts
+    ├─ test/                        # test utils + MSW handlers
+    └─ vite-env.d.ts / app.d.ts
+
+- Prefer colocating tests (`*.test.ts(x)`) and stories
+  (`*.stories.tsx`) next to components.
+
+## 4) React + shadcn/ui + Tailwind
+
+- Use shadcn/ui components as the baseline UI kit. Extend using variant/class-variance-authority patterns.
+- Use a cn utility for class merging.
+
+```Typescript
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: Array<string | undefined | null | false>) {
+    return twMerge(clsx(inputs));
+}
+```
+
+- Tailwind class order: layout → box-model → typography → visuals → state → responsive.
+- Accessibility: label form inputs, use semantic elements, ensure focus states.
+
+## 5) Routing (React Router v6+)
+
+- Use data routers with lazy route components and error boundaries.
+- Put route objects in src/app/routes.
+
+```Typescript
+import { createBrowserRouter } from "react-router-dom";
+
+export const router = createBrowserRouter([
+    {
+        path: "/",
+        lazy: async () => ({ Component: (await import("@/pages/Home")).Home }),
+        errorElement: (await import("@/pages/ErrorBoundary")).default,
+    },
+    {
+        path: "/bookmarks",
+        lazy: async () => ({ Component: (await import("@/features/bookmarks/pages/List")).ListPage }),
+    },
+]);
+```
+
+- provide <RouterProvider router={router} /> in app/providers.
+
+## 6) Data Fetching (TanStack Query v5)
+
+- Centralize QueryClient in app/providers. Enable retries where appropriate.
+- Define query keys as tuples in features/\*/api/query-keys.ts:
+
+```typescript
+export const bookmarkKeys = {
+  all: ['bookmarks'] as const,
+  list: (filters?: Record<string, unknown>) => ['bookmarks', 'list', filters] as const,
+  detail: (id: string) => ['bookmarks', 'detail', id] as const,
+};
+```
+
+- Create typed fetchers returning Zod-validated data. Prefer fetch wrapper with base URL and error parsing.
+- Use useSuspenseQuery for pages with React Suspense boundaries; otherwise useQuery with explicit loading states.
+- Mutations must optimistically update cache and invalidate affected queries upon success.
+
+## 7) Forms & Validation (Zod)
+
+- Validate all external data (server responses, form inputs) with Zod.
+- For forms, pair Zod with react-hook-form; generate zodResolver schemas.
+
+```Typescript
+import { z } from "zod";
+export const BookmarkForm = z.object({
+    title: z.string().min(1, "Title is required"),
+    url: z.string().url("Must be a valid URL"),
+    tags: z.array(z.string()).max(10).optional(),
+});
+export type BookmarkForm = z.infer<typeof BookmarkForm>;
+```
+
+## 8) Testing (Jest + Testing Library)
+
+- Test types: unit (utils/hooks), component (DOM behavior), integration (routing + data fetching), and contract (zod schemas).
+- Use Testing Library: test behavior and accessibility, not implementation details.
+- Minimum expectations for each component:
+  - renders with required props
+  - supports className/style pass-through
+  - accessible roles/labels
+
+```Typescript
+import { render, screen } from "@testing-library/react";
+import { UserCard } from "./UserCard";
+
+test("renders name and optional email", () => {
+    render(<UserCard name="Ada" email="ada@example.com" />);
+    expect(screen.getByText(/ada/i)).toBeInTheDocument();
+    expect(screen.getByText(/example\.com/i)).toBeInTheDocument();
+});
+```
+
+- Mock network with MSW where needed.
+
+## 9) Storybook (v8)
+
+- Use CSF stories collocated with components: Component.stories.tsx.
+- Provide at least: Default, relevant variants, and an a11y-focused story.
+- Use controls for primary props; document args, argTypes, and events.
+
+```Typescript
+import type { Meta, StoryObj } from "@storybook/react";
+import { UserCard } from "./UserCard";
+
+
+const meta: Meta<typeof UserCard> = {
+    title: "Shared/UserCard",
+    component: UserCard,
+    parameters: { layout: "centered" },
+};
+export default meta;
+
+
+type Story = StoryObj<typeof UserCard>;
+
+
+export const Default: Story = {
+    args: { name: "Ada Lovelace", email: "ada@example.com" },
+};
+```
+
+## 10) Error Handling & Boundaries
+
+- Each top-level route should specify errorElement or use an error boundary component.
+- For queries, show friendly error UI with retry. Log details to console in dev only.
+
+## 11) Environment & Config
+
+- Never hardcode secrets; do not commit .env\* files.
+- Provide safe defaults for local dev.
+
+## 12) Git & CI
+
+- Conventional Commits (feat:, fix:, refactor:). Keep messages short and imperative.
+- PRs must include: description, screenshots (UI), and test coverage where applicable.
+
+## 13) What to Generate When Asked
+
+When the user asks to add something in this project, Cursor should:
+
+- Create/modify code using the structure above.
+- Include TypeScript types, Zod schemas (if data involved), a simple Jest test, and a Storybook story for UI components.
+- Add minimal docs in the component file header when non-trivial
+- Wire routing & providers if a new page is added.
+- Ensure Prettier format and ESLint cleanliness.
+
+## 14) Do Not
+
+- Do not introduce Redux/MobX/Recoil unless explicitly asked.
+- Do not write CSS-in-JS unless necessary; use Tailwind + shadcn/ui.
+- Do not add untyped any; prefer unknown + narrowing or Zod.
+- Do not bypass lint or tests without justification.
