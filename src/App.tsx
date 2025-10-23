@@ -1,10 +1,11 @@
-import { Button } from './shared/components/ui/button';
+import { AllBookmarksPage } from './features/bookmarks';
+import Layout from './shared/components/layout/Layout';
 
 function App() {
   return (
-    <div className='flex min-h-svh flex-col items-center justify-center'>
-      <Button onClick={() => alert('Clicked!')}>Click me</Button>
-    </div>
+    <Layout>
+      <AllBookmarksPage />
+    </Layout>
   );
 }
 
