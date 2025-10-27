@@ -1,7 +1,12 @@
+import { QueryProvider } from './app/providers/QueryProvider';
 import { RouterProvider } from './app/providers/RouterProvider';
 
 function App() {
-  return <RouterProvider />;
+  return (
+    <QueryProvider>
+      <RouterProvider />
+    </QueryProvider>
+  );
 }
 
 export default App;

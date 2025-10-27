@@ -1,4 +1,4 @@
-import { BookmarksEmpty } from '../components';
+import { BookmarksEmpty } from '../BookmarksEmpty';
 
 export const ArchivedBookmarks = () => {
   return (
