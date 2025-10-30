@@ -1,5 +1,5 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import { AllBookmarks, ArchivedBookmarks, BookmarksPage } from '../features/bookmarks';
+import { AllBookmarksPage, ArchivedBookmarksPage, BookmarksPage } from '../features/bookmarks';
 
 export const router = createBrowserRouter([
   {
@@ -16,11 +16,11 @@ export const router = createBrowserRouter([
       },
       {
         path: 'all',
-        element: <AllBookmarks />,
+        element: <AllBookmarksPage />,
       },
       {
         path: 'archived',
-        element: <ArchivedBookmarks />,
+        element: <ArchivedBookmarksPage />,
       },
     ],
   },
