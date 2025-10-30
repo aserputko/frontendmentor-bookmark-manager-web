@@ -1,46 +1,34 @@
 import { useAllBookmarks } from '../../hooks';
 import type { Bookmark } from '../../types';
 import { BookmarkCard } from '../BookmarkCard';
-import { BookmarksEmpty } from '../BookmarksEmpty';
+import { AllBookmarksEmpty } from './AllBookmarksEmpty';
+import { AllBookmarksError } from './AllBookmarksError';
+import { AllBookmarksLoading } from './AllBookmarksLoading';
 
 export const AllBookmarks = () => {
-  const { data, isLoading, error } = useAllBookmarks();
+  const { data, isLoading, error: isError } = useAllBookmarks();
 
   const bookmarks: Bookmark[] = data?.data ?? [];
 
+  const isEmpty = !bookmarks || bookmarks.length === 0;
+
   if (isLoading) {
-    return (
-      <div className='flex w-full flex-auto flex-col items-center justify-center gap-4 bg-teal-50 p-8'>
-        <p>Loading bookmarks...</p>
-      </div>
-    );
+    return <AllBookmarksLoading />;
   }
 
-  if (error) {
-    return (
-      <div className='flex w-full flex-auto flex-col items-center justify-center gap-4 bg-teal-50 p-8'>
-        <p>Error loading bookmarks. Please try again.</p>
-      </div>
-    );
+  if (isError) {
+    return <AllBookmarksError />;
   }
 
-  if (!bookmarks || bookmarks.length === 0) {
-    return (
-      <div className='flex w-full flex-auto flex-col items-start justify-start gap-4 bg-teal-50 p-8'>
-        <h1>All Bookmarks</h1>
-        <BookmarksEmpty />
-      </div>
-    );
+  if (isEmpty) {
+    return <AllBookmarksEmpty />;
   }
 
   return (
-    <div className='flex w-full flex-auto flex-col items-start justify-start gap-4 bg-teal-50 p-8'>
-      <h1>All Bookmarks</h1>
-      <div className='flex w-full flex-wrap gap-8'>
-        {bookmarks.map((bookmark) => (
-          <BookmarkCard key={bookmark.id} bookmark={bookmark} />
-        ))}
-      </div>
+    <div className='flex w-full flex-wrap gap-8'>
+      {bookmarks.map((bookmark) => (
+        <BookmarkCard key={bookmark.id} bookmark={bookmark} />
+      ))}
     </div>
   );
 };
