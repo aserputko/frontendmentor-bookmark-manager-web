@@ -10,7 +10,7 @@ export const AllBookmarks = () => {
 
   const bookmarks: Bookmark[] = data?.data ?? [];
 
-  const isEmpty = !bookmarks || bookmarks.length === 0;
+  const isEmpty = bookmarks.length === 0;
 
   if (isLoading) {
     return <AllBookmarksLoading />;

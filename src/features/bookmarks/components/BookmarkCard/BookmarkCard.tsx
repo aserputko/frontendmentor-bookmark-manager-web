@@ -8,10 +8,7 @@ type BookmarkCardProps = {
 
 export const BookmarkCard = ({ bookmark, className }: BookmarkCardProps) => {
   return (
-    <div
-      key={bookmark.id}
-      className={cn('flex w-[31%] flex-col gap-4 rounded-lg bg-white p-4 shadow-md', className)}
-    >
+    <div className={cn('flex w-[31%] flex-col gap-4 rounded-lg bg-white p-4 shadow-md', className)}>
       <h2 className='text-lg font-semibold'>{bookmark.title}</h2>
 
       <a
