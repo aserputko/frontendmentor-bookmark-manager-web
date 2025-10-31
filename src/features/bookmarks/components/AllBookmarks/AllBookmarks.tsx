@@ -17,37 +17,29 @@ export const AllBookmarks = () => {
     isFetchingNextPage,
   } = useAllBookmarks(BOOKMARKS_DEFAULT_LIMIT);
 
+  const observerTarget = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      { threshold: 1.0 }, // Trigger when 100% visible
+    );
+
+    if (observerTarget.current) {
+      observer.observe(observerTarget.current);
+    }
+
+    return () => observer.disconnect();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
   // Flatten all pages into a single array of bookmarks
   const bookmarks: Bookmark[] = data?.pages.flatMap((page) => page.data) ?? [];
 
   const isEmpty = !isLoading && bookmarks.length === 0;
-  const sentinelRef = useRef<HTMLDivElement>(null);
-
-  // Intersection Observer to detect when user scrolls to bottom
-  useEffect(() => {
-    const sentinel = sentinelRef.current;
-    if (!sentinel || !hasNextPage || isFetchingNextPage) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
-        if (entry?.isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage();
-        }
-      },
-      {
-        rootMargin: '100px', // Start loading slightly before reaching the bottom
-      },
-    );
-
-    observer.observe(sentinel);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   if (isLoading) {
     return <AllBookmarksLoading />;
@@ -62,18 +54,17 @@ export const AllBookmarks = () => {
   }
 
   return (
-    <div className='flex min-h-0 w-full flex-1 flex-col'>
+    <div>
       <div className='flex min-h-0 w-full flex-1 flex-wrap gap-8'>
         {bookmarks.map((bookmark) => (
           <BookmarkCard key={bookmark.id} bookmark={bookmark} />
         ))}
       </div>
-      {/* Sentinel element to trigger loading next page */}
-      <div ref={sentinelRef} className='h-1 w-full' />
-      {/* Loading indicator at bottom */}
-      {isFetchingNextPage && (
+      {/* Sentinel element at the bottom */}
+      <div id='sentinel' ref={observerTarget} style={{ height: '20px' }} />
+      {hasNextPage && (
         <div className='flex w-full items-center justify-center py-4'>
-          <Spinner className='size-6' />
+          {isFetchingNextPage && <Spinner className='size-6' />}
         </div>
       )}
     </div>
