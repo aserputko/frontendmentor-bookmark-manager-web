@@ -1,15 +1,20 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import { fetchBookmarks } from '../api';
+import type { BookmarksResponse } from '../types';
 
-const DEFAULT_PAGE = 1;
-const DEFAULT_LIMIT = 36; // 12;
+export const BOOKMARKS_DEFAULT_LIMIT = 12;
 
-export const ALL_BOOKMARKS_QUERY_KEY = (page?: number, limit?: number) =>
-  ['bookmarks', `page=${page}`, `limit=${limit}`] as const;
+export const ALL_BOOKMARKS_QUERY_KEY = (limit?: number) =>
+  ['bookmarks', 'infinite', `limit=${limit}`] as const;
 
-export function useAllBookmarks(page = DEFAULT_PAGE, limit = DEFAULT_LIMIT) {
-  return useQuery({
-    queryKey: ALL_BOOKMARKS_QUERY_KEY(page, limit),
-    queryFn: () => fetchBookmarks(page, limit),
+export function useAllBookmarks(limit = BOOKMARKS_DEFAULT_LIMIT) {
+  return useInfiniteQuery<BookmarksResponse>({
+    queryKey: ALL_BOOKMARKS_QUERY_KEY(limit),
+    queryFn: ({ pageParam }) => fetchBookmarks(pageParam as number, limit),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      const { page, totalPages } = lastPage.meta;
+      return page < totalPages ? page + 1 : undefined;
+    },
   });
 }

@@ -24,11 +24,13 @@ function renderWithClient(ui: React.ReactElement) {
 
 function TestComponent() {
   const { data, isLoading, isError, error } = useAllBookmarks();
+  // Flatten pages for infinite query
+  const bookmarks = data?.pages.flatMap((page) => page.data) ?? [];
   return (
     <div>
       {isLoading && <div data-testid='loading'>loading</div>}
       {isError && <div data-testid='error'>{(error as Error).message}</div>}
-      {data && <div data-testid='count'>{data.data.length}</div>}
+      {data && <div data-testid='count'>{bookmarks.length}</div>}
     </div>
   );
 }
@@ -65,6 +67,7 @@ describe('useAllBookmarks', () => {
     await waitFor(() => expect(screen.getByTestId('count')).toHaveTextContent('1'));
 
     expect(fetchBookmarks).toHaveBeenCalledTimes(1);
+    expect(fetchBookmarks).toHaveBeenCalledWith(1, 12); // initialPageParam and default limit
   });
 
   it('exposes error state on failure', async () => {

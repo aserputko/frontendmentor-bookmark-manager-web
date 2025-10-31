@@ -25,6 +25,9 @@ describe('AllBookmarks', () => {
       data: undefined,
       isLoading: true,
       error: null,
+      fetchNextPage: jest.fn(),
+      hasNextPage: false,
+      isFetchingNextPage: false,
     });
 
     render(<AllBookmarks />);
@@ -36,6 +39,9 @@ describe('AllBookmarks', () => {
       data: undefined,
       isLoading: false,
       error: new Error('boom'),
+      fetchNextPage: jest.fn(),
+      hasNextPage: false,
+      isFetchingNextPage: false,
     });
 
     render(<AllBookmarks />);
@@ -44,9 +50,12 @@ describe('AllBookmarks', () => {
 
   it('renders empty state when no bookmarks', () => {
     (useAllBookmarks as jest.Mock).mockReturnValue({
-      data: { data: [] },
+      data: { pages: [{ data: [], meta: { total: 0, page: 1, limit: 12, totalPages: 0 } }] },
       isLoading: false,
       error: null,
+      fetchNextPage: jest.fn(),
+      hasNextPage: false,
+      isFetchingNextPage: false,
     });
 
     render(<AllBookmarks />);
@@ -56,13 +65,21 @@ describe('AllBookmarks', () => {
   it('renders list of bookmarks when data available', () => {
     (useAllBookmarks as jest.Mock).mockReturnValue({
       data: {
-        data: [
-          { id: '1', title: 'Bookmark One' },
-          { id: '2', title: 'Bookmark Two' },
+        pages: [
+          {
+            data: [
+              { id: '1', title: 'Bookmark One' },
+              { id: '2', title: 'Bookmark Two' },
+            ],
+            meta: { total: 2, page: 1, limit: 12, totalPages: 1 },
+          },
         ],
       },
       isLoading: false,
       error: null,
+      fetchNextPage: jest.fn(),
+      hasNextPage: false,
+      isFetchingNextPage: false,
     });
 
     render(<AllBookmarks />);
