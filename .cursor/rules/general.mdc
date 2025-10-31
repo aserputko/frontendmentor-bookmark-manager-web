@@ -78,7 +78,7 @@ refactoring code in this project.
     │  │  │  └─ useBookmarkFilters.ts
     │  │  ├─ lib/
     │  │  │  └─ sort.ts             # recently added/visited, most visited
-    │  │  └─ types.ts               # Bookmark, Tag, Sort enums
+    │  │  └─ types/               # Bookmark, Tag, Sort enums
     │  │
     │  ├─ auth/
     │  │  ├─ components/
