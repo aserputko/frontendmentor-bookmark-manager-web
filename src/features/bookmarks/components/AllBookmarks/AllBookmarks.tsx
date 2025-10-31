@@ -25,7 +25,7 @@ export const AllBookmarks = () => {
   }
 
   return (
-    <div className='flex w-full flex-wrap gap-8'>
+    <div className='flex min-h-0 w-full flex-1 flex-wrap gap-8'>
       {bookmarks.map((bookmark) => (
         <BookmarkCard key={bookmark.id} bookmark={bookmark} />
       ))}
