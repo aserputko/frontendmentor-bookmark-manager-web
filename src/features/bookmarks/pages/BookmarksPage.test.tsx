@@ -1,10 +1,27 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { BookmarksPage } from './BookmarksPage';
 
+jest.mock('../api', () => ({
+  addBookmark: jest.fn(),
+  fetchBookmarks: jest.fn(),
+}));
+
 function renderWithRouter(ui: React.ReactElement, initialEntries: string[] = ['/']) {
-  return render(<MemoryRouter initialEntries={initialEntries}>{ui}</MemoryRouter>);
+  const client = new QueryClient({
+    defaultOptions: {
+      queries: { retry: false, gcTime: 0 },
+      mutations: { retry: false },
+    },
+  });
+
+  return render(
+    <QueryClientProvider client={client}>
+      <MemoryRouter initialEntries={initialEntries}>{ui}</MemoryRouter>
+    </QueryClientProvider>,
+  );
 }
 
 describe('BookmarksPage', () => {

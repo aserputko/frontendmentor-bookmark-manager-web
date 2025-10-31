@@ -21,6 +21,9 @@ export default {
           moduleResolution: 'node16',
           types: ['jest', 'node', 'vite/client', '@testing-library/jest-dom'],
         },
+        diagnostics: {
+          ignoreCodes: [151002, 1343],
+        },
       },
     ],
   },

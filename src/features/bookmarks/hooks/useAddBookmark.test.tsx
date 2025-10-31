@@ -112,7 +112,24 @@ describe('useAddBookmark', () => {
   });
 
   it('invalidates bookmarks query on success', async () => {
-    const { result, client } = renderWithClient();
+    const client = new QueryClient({
+      defaultOptions: {
+        queries: { retry: false, gcTime: Infinity },
+        mutations: { retry: false },
+      },
+    });
+
+    const { result } = renderHook(() => useAddBookmark(), {
+      wrapper: ({ children }) => (
+        <QueryClientProvider client={client}>{children}</QueryClientProvider>
+      ),
+    });
+
+    // Set up a query first so we can check its state
+    await client.prefetchQuery({
+      queryKey: ALL_BOOKMARKS_QUERY_KEY,
+      queryFn: async () => [],
+    });
 
     (addBookmark as jest.Mock).mockResolvedValueOnce(undefined);
 
@@ -123,13 +140,11 @@ describe('useAddBookmark', () => {
       tags: 'JavaScript',
     });
 
+    // Wait for invalidation to complete
     await waitFor(() => {
-      expect(addBookmark).toHaveBeenCalled();
+      const queryState = client.getQueryState(ALL_BOOKMARKS_QUERY_KEY);
+      expect(queryState?.isInvalidated).toBe(true);
     });
-
-    // Check that the query was invalidated
-    const queryState = client.getQueryState({ queryKey: ALL_BOOKMARKS_QUERY_KEY });
-    expect(queryState).toBeDefined();
   });
 
   it('handles errors from addBookmark', async () => {

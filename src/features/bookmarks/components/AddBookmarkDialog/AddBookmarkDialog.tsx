@@ -60,16 +60,11 @@ export function AddBookmarkDialog({ open, onOpenChange }: AddBookmarkDialogProps
           <DialogTitle>Add Bookmark</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
+        <form onSubmit={handleSubmit(onSubmit)} className='space-y-4' noValidate>
           <Field>
             <FieldLabel htmlFor='title'>Title</FieldLabel>
             <FieldContent>
-              <Input
-                id='title'
-                {...register('title')}
-                aria-invalid={!!errors.title}
-                maxLength={280}
-              />
+              <Input id='title' {...register('title')} aria-invalid={!!errors.title} />
               <FieldError errors={errors.title ? [errors.title] : undefined} />
             </FieldContent>
           </Field>
@@ -81,7 +76,6 @@ export function AddBookmarkDialog({ open, onOpenChange }: AddBookmarkDialogProps
                 id='description'
                 {...register('description')}
                 aria-invalid={!!errors.description}
-                maxLength={280}
               />
               <FieldError errors={errors.description ? [errors.description] : undefined} />
             </FieldContent>
