@@ -28,7 +28,7 @@ if (!('matchMedia' in window)) {
 
 // Polyfill IntersectionObserver for infinite scroll components
 if (!('IntersectionObserver' in window)) {
-  global.IntersectionObserver = jest.fn().mockImplementation((callback) => {
+  global.IntersectionObserver = jest.fn().mockImplementation(() => {
     return {
       observe: jest.fn(),
       disconnect: jest.fn(),
