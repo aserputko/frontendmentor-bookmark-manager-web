@@ -25,3 +25,16 @@ if (!('matchMedia' in window)) {
     dispatchEvent: jest.fn(),
   }));
 }
+
+// Mock import.meta.env for API tests
+if (!('import' in globalThis)) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore - assigning import.meta polyfill in test env
+  (globalThis as unknown as { import: { meta: { env: { VITE_API_BASE_URL: string } } } }).import = {
+    meta: {
+      env: {
+        VITE_API_BASE_URL: 'http://localhost:3000/api',
+      },
+    },
+  };
+}
