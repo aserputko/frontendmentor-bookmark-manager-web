@@ -1,8 +1,19 @@
 import type { BookmarksResponse } from '../types';
 import { BookmarksResponseSchema } from '../types';
 
-export async function fetchBookmarks(): Promise<BookmarksResponse> {
-  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/bookmarks`);
+export async function fetchBookmarks(page?: number, limit?: number): Promise<BookmarksResponse> {
+  const params = new URLSearchParams();
+  if (page !== undefined) {
+    params.append('page', String(page));
+  }
+  if (limit !== undefined) {
+    params.append('limit', String(limit));
+  }
+
+  const queryString = params.toString();
+  const url = `${import.meta.env.VITE_API_BASE_URL}/bookmarks${queryString ? `?${queryString}` : ''}`;
+
+  const response = await fetch(url);
 
   if (!response.ok) {
     throw new Error('Failed to fetch bookmarks');
