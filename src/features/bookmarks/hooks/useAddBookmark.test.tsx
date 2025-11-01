@@ -1,7 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { renderHook, waitFor } from '@testing-library/react';
 import { useAddBookmark } from './useAddBookmark';
-import { ALL_BOOKMARKS_QUERY_KEY } from './useAllBookmarks';
 
 jest.mock('../api', () => ({
   addBookmark: jest.fn(),
@@ -125,10 +124,15 @@ describe('useAddBookmark', () => {
       ),
     });
 
-    // Set up a query first so we can check its state
-    await client.prefetchQuery({
-      queryKey: ALL_BOOKMARKS_QUERY_KEY,
-      queryFn: async () => [],
+    // Set up an infinite query first so we can check its state
+    await client.prefetchInfiniteQuery({
+      queryKey: ['bookmarks', 'infinite', 'limit=12'],
+      queryFn: async () => ({
+        data: [],
+        meta: { total: 0, page: 1, limit: 12, totalPages: 0 },
+      }),
+      initialPageParam: 1,
+      getNextPageParam: () => undefined,
     });
 
     (addBookmark as jest.Mock).mockResolvedValueOnce(undefined);
@@ -142,7 +146,7 @@ describe('useAddBookmark', () => {
 
     // Wait for invalidation to complete
     await waitFor(() => {
-      const queryState = client.getQueryState(ALL_BOOKMARKS_QUERY_KEY);
+      const queryState = client.getQueryState(['bookmarks', 'infinite', 'limit=12']);
       expect(queryState?.isInvalidated).toBe(true);
     });
   });
