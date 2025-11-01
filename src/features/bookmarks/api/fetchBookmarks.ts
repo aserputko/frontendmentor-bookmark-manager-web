@@ -11,7 +11,7 @@ export async function fetchBookmarks(page?: number, limit?: number): Promise<Boo
   }
 
   const queryString = params.toString();
-  const url = `${import.meta.env.VITE_API_BASE_URL}/bookmarks${queryString ? `?${queryString}` : ''}`;
+  const url = `${process.env.API_BASE_URL}/bookmarks${queryString ? `?${queryString}` : ''}`;
 
   const response = await fetch(url);
 

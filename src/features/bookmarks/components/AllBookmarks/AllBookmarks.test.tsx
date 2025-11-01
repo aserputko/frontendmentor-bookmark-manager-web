@@ -1,9 +1,14 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render, screen } from '@testing-library/react';
+import React from 'react';
 import { AllBookmarks } from './AllBookmarks';
 
 // Mock the hooks module to control states
 jest.mock('../../hooks', () => ({
   useAllBookmarks: jest.fn(),
+  useAddBookmark: jest.fn(() => ({
+    mutateAsync: jest.fn(),
+  })),
 }));
 
 // Mock BookmarkCard to a simple component to assert rendered items
@@ -14,6 +19,16 @@ jest.mock('../BookmarkCard', () => ({
 }));
 
 import { useAllBookmarks } from '../../hooks';
+
+function renderWithClient(ui: React.ReactElement) {
+  const client = new QueryClient({
+    defaultOptions: {
+      queries: { retry: false, gcTime: 0 },
+      mutations: { retry: false },
+    },
+  });
+  return render(<QueryClientProvider client={client}>{ui}</QueryClientProvider>);
+}
 
 describe('AllBookmarks', () => {
   afterEach(() => {
@@ -30,7 +45,7 @@ describe('AllBookmarks', () => {
       isFetchingNextPage: false,
     });
 
-    render(<AllBookmarks />);
+    renderWithClient(<AllBookmarks />);
     expect(screen.getByText(/loading bookmarks/i)).toBeInTheDocument();
   });
 
@@ -44,7 +59,7 @@ describe('AllBookmarks', () => {
       isFetchingNextPage: false,
     });
 
-    render(<AllBookmarks />);
+    renderWithClient(<AllBookmarks />);
     expect(screen.getByText(/something went wrong/i)).toBeInTheDocument();
   });
 
@@ -58,7 +73,7 @@ describe('AllBookmarks', () => {
       isFetchingNextPage: false,
     });
 
-    render(<AllBookmarks />);
+    renderWithClient(<AllBookmarks />);
     expect(screen.getByText(/no bookmarks yet/i)).toBeInTheDocument();
   });
 
@@ -82,7 +97,7 @@ describe('AllBookmarks', () => {
       isFetchingNextPage: false,
     });
 
-    render(<AllBookmarks />);
+    renderWithClient(<AllBookmarks />);
     expect(screen.getByTestId('bookmark-1')).toHaveTextContent('Bookmark One');
     expect(screen.getByTestId('bookmark-2')).toHaveTextContent('Bookmark Two');
   });
