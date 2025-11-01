@@ -38,6 +38,7 @@ jobs:
               with:
                   role-to-assume: arn:aws:iam::041121416087:role/frontendmentor-bookmark-manager-web-GitHubActions-Dev-Role
                   aws-region: us-east-1
+                  role-session-name: GitHubActions-Dev-Session
 
             - name: Upload to S3
               run: |
