@@ -7,21 +7,22 @@ on:
       - completed
     branches:
       - main
-env:
-  API_BASE_URL: ${{ secrets.API_BASE_URL_DEV_ENV }}
-  AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN_DEV_ENV }}
-  AWS_REGION: ${{ secrets.AWS_REGION }}
-  AWS_CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID_DEV_ENV }}
-  AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME_DEV_ENV }}
 
 jobs:
   deploy:
     name: Build and Deploy to S3 (Dev)
     runs-on: ubuntu-latest
+    environment: DEV
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     permissions:
       id-token: write
       contents: read
+    env:
+      API_BASE_URL: ${{ secrets.API_BASE_URL }}
+      AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_ARN }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
+      AWS_CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
 
     steps:
       - name: Checkout code
@@ -57,5 +58,5 @@ jobs:
       - name: Invalidate CloudFront cache
         run: |
           aws cloudfront create-invalidation \
-            --distribution-id ${{ env.AWS_DISTRIBUTION_ID }} \
+            --distribution-id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID }} \
             --paths "/*"
