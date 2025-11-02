@@ -36,7 +36,7 @@ export function AppSidebar() {
             <AvatarImage src='https://github.com/evilrabbit.png' alt='Bookmark Manager' />
             <AvatarFallback>BM</AvatarFallback>
           </Avatar>
-          <h4>Bookmark Manager!</h4>
+          <h4>Bookmark Manager!!!</h4>
         </div>
       </SidebarHeader>
       <SidebarContent>
