@@ -161,6 +161,10 @@
     @apply bg-background text-foreground;
   }
 
+  #storybook-docs {
+    @apply h-full overflow-auto;
+  }
+
   /* Typography */
   h1 {
     @apply scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance;
