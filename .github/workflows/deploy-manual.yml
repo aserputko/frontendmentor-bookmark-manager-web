@@ -54,6 +54,9 @@ jobs:
         env:
           VITE_API_BASE_URL: ${{ env.API_BASE_URL }}
 
+      - name: Build storybook
+        run: npm run build-storybook
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
