@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    name: Build and Deploy to S3 (Dev)
+    name: Build and Deploy to S3 (DEV)
     runs-on: ubuntu-latest
     environment: DEV
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
@@ -23,6 +23,8 @@ jobs:
       AWS_REGION: ${{ secrets.AWS_REGION }}
       AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
       AWS_CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
+      AWS_S3_BUCKET_NAME_STORYBOOK: ${{ secrets.AWS_S3_BUCKET_NAME_STORYBOOK }}
+      AWS_CLOUDFRONT_DISTRIBUTION_ID_STORYBOOK: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID_STORYBOOK }}
 
     steps:
       - name: Checkout code
@@ -49,14 +51,26 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           role-session-name: GitHubActions-${{ github.run_id }}
 
-      - name: Upload to S3
+      - name: Upload to S3 (Web)
         run: |
           aws s3 sync dist/ s3://${{ env.AWS_S3_BUCKET_NAME }}/ \
             --delete \
             --region us-east-1
 
-      - name: Invalidate CloudFront cache
+      - name: Invalidate CloudFront cache (Web)
         run: |
           aws cloudfront create-invalidation \
             --distribution-id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"
+
+      - name: Upload to S3 (Storybook)
+        run: |
+          aws s3 sync storybook-static/ s3://${{ env.AWS_S3_BUCKET_NAME_STORYBOOK }}/ \
+            --delete \
+            --region us-east-1
+
+      - name: Invalidate CloudFront cache (Storybook)
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ env.AWS_CLOUDFRONT_DISTRIBUTION_ID_STORYBOOK }} \
             --paths "/*"
