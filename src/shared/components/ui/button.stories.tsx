@@ -43,9 +43,10 @@ export const Default: Story = {
   },
 };
 
-export const Destructive: Story = {
+export const ErrorButton: Story = {
+  name: 'Error',
   args: {
-    variant: 'destructive',
+    variant: 'error',
     children: 'Delete',
   },
 };
@@ -104,18 +105,18 @@ export const Icon: Story = {
     size: 'icon',
     children: (
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        xmlns='http://www.w3.org/2000/svg'
+        width='24'
+        height='24'
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth='2'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       >
-        <path d="M5 12h14" />
-        <path d="m12 5 7 7-7 7" />
+        <path d='M5 12h14' />
+        <path d='m12 5 7 7-7 7' />
       </svg>
     ),
     'aria-label': 'Arrow right',
@@ -124,27 +125,26 @@ export const Icon: Story = {
 
 export const AllVariants: Story = {
   render: () => (
-    <div className="flex flex-col gap-4">
-      <div className="flex gap-2 flex-wrap">
-        <Button variant="default">Default</Button>
-        <Button variant="destructive">Destructive</Button>
-        <Button variant="outline">Outline</Button>
-        <Button variant="secondary">Secondary</Button>
-        <Button variant="ghost">Ghost</Button>
-        <Button variant="link">Link</Button>
+    <div className='flex flex-col gap-4'>
+      <div className='flex flex-wrap gap-2'>
+        <Button variant='default'>Default</Button>
+        <Button variant='error'>Error</Button>
+        <Button variant='outline'>Outline</Button>
+        <Button variant='secondary'>Secondary</Button>
+        <Button variant='ghost'>Ghost</Button>
+        <Button variant='link'>Link</Button>
       </div>
-      <div className="flex gap-2 flex-wrap items-center">
-        <Button size="sm">Small</Button>
-        <Button size="default">Default</Button>
-        <Button size="lg">Large</Button>
+      <div className='flex flex-wrap items-center gap-2'>
+        <Button size='sm'>Small</Button>
+        <Button size='default'>Default</Button>
+        <Button size='lg'>Large</Button>
       </div>
-      <div className="flex gap-2 flex-wrap">
+      <div className='flex flex-wrap gap-2'>
         <Button disabled>Disabled</Button>
-        <Button variant="outline" disabled>
+        <Button variant='outline' disabled>
           Disabled Outline
         </Button>
       </div>
     </div>
   ),
 };
-
