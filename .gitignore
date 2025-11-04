@@ -32,3 +32,4 @@ coverage
 *.sw?
 
 *storybook.log
+storybook-static
