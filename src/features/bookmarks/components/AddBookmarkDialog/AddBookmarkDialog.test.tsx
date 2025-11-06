@@ -39,6 +39,7 @@ describe('AddBookmarkDialog', () => {
     jest.clearAllMocks();
     (useAddBookmark as jest.Mock).mockReturnValue({
       mutateAsync: mockMutateAsync,
+      isPending: false,
     });
   });
 
@@ -145,6 +146,10 @@ describe('AddBookmarkDialog', () => {
       resolvePromise = resolve;
     });
     mockMutateAsync.mockReturnValueOnce(promise);
+    (useAddBookmark as jest.Mock).mockReturnValue({
+      mutateAsync: mockMutateAsync,
+      isPending: true,
+    });
 
     renderWithClient(<AddBookmarkDialog open={true} onOpenChange={mockOnOpenChange} />);
 
