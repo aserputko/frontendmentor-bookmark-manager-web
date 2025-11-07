@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import '../src/index.css';
 
 // Component to load Manrope font in Storybook
+// eslint-disable-next-line react-refresh/only-export-components
 const FontLoader = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     // Check if font is already loaded
