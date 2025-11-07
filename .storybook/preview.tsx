@@ -3,10 +3,10 @@ import { themes } from '@storybook/theming';
 import React, { useEffect } from 'react';
 import '../src/index.css';
 
-// Component to load fonts (Manrope and DM Sans) in Storybook
+// Component to load Manrope font in Storybook
 const FontLoader = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
-    // Check if fonts are already loaded
+    // Check if font is already loaded
     const existingLink = document.querySelector(
       'link[href*="fonts.googleapis.com/css2?family=Manrope"]',
     );
@@ -26,10 +26,10 @@ const FontLoader = ({ children }: { children: React.ReactNode }) => {
     preconnect2.crossOrigin = 'anonymous';
     document.head.appendChild(preconnect2);
 
-    // Add font stylesheet with both Manrope and DM Sans
+    // Add font stylesheet
     const fontLink = document.createElement('link');
     fontLink.href =
-      'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap';
+      'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap';
     fontLink.rel = 'stylesheet';
     document.head.appendChild(fontLink);
   }, []);
