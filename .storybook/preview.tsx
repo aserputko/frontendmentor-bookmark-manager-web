@@ -1,6 +1,41 @@
 import type { Preview } from '@storybook/react';
 import { themes } from '@storybook/theming';
+import React, { useEffect } from 'react';
 import '../src/index.css';
+
+// Component to load fonts (Manrope and DM Sans) in Storybook
+const FontLoader = ({ children }: { children: React.ReactNode }) => {
+  useEffect(() => {
+    // Check if fonts are already loaded
+    const existingLink = document.querySelector(
+      'link[href*="fonts.googleapis.com/css2?family=Manrope"]',
+    );
+    if (existingLink) {
+      return;
+    }
+
+    // Add preconnect links
+    const preconnect1 = document.createElement('link');
+    preconnect1.rel = 'preconnect';
+    preconnect1.href = 'https://fonts.googleapis.com';
+    document.head.appendChild(preconnect1);
+
+    const preconnect2 = document.createElement('link');
+    preconnect2.rel = 'preconnect';
+    preconnect2.href = 'https://fonts.gstatic.com';
+    preconnect2.crossOrigin = 'anonymous';
+    document.head.appendChild(preconnect2);
+
+    // Add font stylesheet with both Manrope and DM Sans
+    const fontLink = document.createElement('link');
+    fontLink.href =
+      'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap';
+    fontLink.rel = 'stylesheet';
+    document.head.appendChild(fontLink);
+  }, []);
+
+  return <>{children}</>;
+};
 
 const preview: Preview = {
   parameters: {
@@ -25,9 +60,11 @@ const preview: Preview = {
   },
   decorators: [
     (Story) => (
-      <div className="h-full w-full p-4 bg-background text-foreground">
-        <Story />
-      </div>
+      <FontLoader>
+        <div className='bg-background text-foreground h-full w-full p-4'>
+          <Story />
+        </div>
+      </FontLoader>
     ),
   ],
 };
