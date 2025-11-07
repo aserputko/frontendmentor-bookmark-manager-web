@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta = {
-  title: 'Shared/UI/Colors',
+  title: 'Design System/Foundations/Colors',
   parameters: {
     layout: 'padded',
   },
-  tags: ['autodocs'],
+  tags: [],
 };
 
 export default meta;
@@ -111,6 +111,7 @@ const ColorSwatch = ({ name, light, dark }: { name: string; light: string; dark:
 };
 
 export const Default: Story = {
+  name: 'All Colors',
   render: () => (
     <div className='space-y-8'>
       <div>

@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render } from '@testing-library/react';
 import { screen, waitFor } from '@testing-library/dom';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import { AddBookmarkDialog } from './AddBookmarkDialog';
@@ -212,16 +212,19 @@ describe('AddBookmarkDialog', () => {
     const longURL = 'https://example.com/' + 'c'.repeat(1024);
 
     const titleInput = screen.getByLabelText(/title/i);
+    await user.click(titleInput);
     await user.clear(titleInput);
-    await user.type(titleInput, longTitle);
+    await user.paste(longTitle);
 
     const descInput = screen.getByLabelText(/description/i);
+    await user.click(descInput);
     await user.clear(descInput);
-    await user.type(descInput, longDescription);
+    await user.paste(longDescription);
 
     const urlInput = screen.getByLabelText(/website url/i);
+    await user.click(urlInput);
     await user.clear(urlInput);
-    await user.type(urlInput, longURL);
+    await user.paste(longURL);
 
     const submitButton = screen.getByRole('button', { name: /add bookmark/i });
     await user.click(submitButton);
