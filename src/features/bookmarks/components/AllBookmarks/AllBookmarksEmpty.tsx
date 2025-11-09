@@ -29,7 +29,7 @@ export const AllBookmarksEmpty = () => {
           </EmptyHeader>
           <EmptyContent>
             <div className='flex'>
-              <Button variant='default' size='lg' onClick={() => setIsDialogOpen(true)}>
+              <Button variant='primary' size='lg' onClick={() => setIsDialogOpen(true)}>
                 <Plus />
                 Add Bookmark
               </Button>

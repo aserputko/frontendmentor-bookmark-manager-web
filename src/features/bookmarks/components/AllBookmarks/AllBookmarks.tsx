@@ -55,16 +55,16 @@ export const AllBookmarks = () => {
 
   return (
     <div>
-      <div className='flex min-h-0 w-full flex-1 flex-wrap gap-8'>
+      <div className='flex min-h-0 w-full flex-1 flex-wrap gap-32'>
         {bookmarks.map((bookmark) => (
           <BookmarkCard key={bookmark.id} bookmark={bookmark} />
         ))}
       </div>
       {/* Sentinel element at the bottom */}
-      <div id='sentinel' ref={observerTarget} style={{ height: '20px' }} />
+      <div id='sentinel' ref={observerTarget} style={{ height: '24px' }} />
       {hasNextPage && (
         <div className='flex w-full items-center justify-center py-4'>
-          {isFetchingNextPage && <Spinner className='size-6' />}
+          {isFetchingNextPage && <Spinner className='size-24' />}
         </div>
       )}
     </div>

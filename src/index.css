@@ -5,10 +5,15 @@
 
 @theme inline {
   --font-family-sans: 'Manrope', sans-serif;
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-0: 0px;
+  --radius-4: 4px;
+  --radius-6: 6px;
+  --radius-8: 8px;
+  --radius-10: 10px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-20: 20px;
+  --radius-24: 24px;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -52,6 +57,25 @@
   --color-teal-800: var(--teal-800);
   --color-red-600: var(--red-600);
   --color-red-800: var(--red-800);
+  --spacing-0: 0px;
+  --spacing-2: 2px;
+  --spacing-4: 4px;
+  --spacing-6: 6px;
+  --spacing-8: 8px;
+  --spacing-10: 10px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+  --spacing-112: 112px;
+  --spacing-128: 128px;
+  --spacing-140: 140px;
 }
 
 :root {
@@ -190,7 +214,8 @@
 
   /* Text Preset 3: 16px, SemiBold, line-height 140%, letter-spacing 0px */
   h3,
-  .h3 {
+  .h3,
+  .text-preset-3 {
     font-family: var(--font-family-sans);
     font-size: 16px;
     font-style: normal;
