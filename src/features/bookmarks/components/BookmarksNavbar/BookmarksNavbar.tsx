@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { Plus } from 'lucide-react';
+import { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '../../../../shared/components/ui/avatar';
 import { Button } from '../../../../shared/components/ui/button';
 import { Input } from '../../../../shared/components/ui/input';
@@ -10,11 +10,11 @@ export const BookmarksNavbar = () => {
 
   return (
     <>
-      <nav className='flex w-full items-center gap-4 border-b border-solid px-8 py-4'>
+      <nav className='flex w-full items-center gap-16 border-b border-solid px-32 py-16'>
         <Input placeholder='Search by title...' className='w-[320px]' />
 
         <div className='flex flex-auto'></div>
-        <Button variant='default' onClick={() => setIsDialogOpen(true)}>
+        <Button variant='primary' onClick={() => setIsDialogOpen(true)}>
           <Plus />
           Add Bookmark
         </Button>

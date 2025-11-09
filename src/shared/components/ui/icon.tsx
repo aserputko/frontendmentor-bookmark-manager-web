@@ -1,4 +1,4 @@
-import { cn } from '@/shared/lib/utils';
+import { cva } from 'class-variance-authority';
 import {
   Archive,
   ArrowUpDown,
@@ -51,14 +51,34 @@ export const IconName = {
   PinOff: 'PinOff',
 } as const;
 
+export const IconSize = {
+  Small: 'sm',
+  Large: 'lg',
+} as const;
+
+export type IconSize = (typeof IconSize)[keyof typeof IconSize];
+
 export type IconName = (typeof IconName)[keyof typeof IconName];
 
-interface IconProps {
+const iconVariants = cva('flex shrink-0 items-center justify-center', {
+  variants: {
+    size: {
+      [IconSize.Small]: 'h-12 max-h-12 min-h-12 w-12 max-w-12 min-w-12 ',
+      [IconSize.Large]: 'h-20 max-h-20 min-h-20 w-20 max-w-20 min-w-20 ',
+    },
+  },
+  defaultVariants: {
+    size: IconSize.Large,
+  },
+});
+
+export type IconProps = {
   className?: string;
   name: IconName;
-}
+  size?: IconSize;
+};
 
-function Icon({ className, name }: IconProps) {
+export const Icon = ({ className, name, size }: IconProps) => {
   const IconComponents: Record<IconName, React.ElementType> = {
     [IconName.House]: House,
     [IconName.Archive]: Archive,
@@ -91,11 +111,5 @@ function Icon({ className, name }: IconProps) {
     return null;
   }
 
-  return (
-    <IconComponent
-      className={cn('flex h-[20px] w-[20px] shrink-0 items-center justify-center', className)}
-    />
-  );
-}
-
-export { Icon };
+  return <IconComponent className={iconVariants({ size, className })} />;
+};

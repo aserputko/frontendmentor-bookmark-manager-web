@@ -24,7 +24,7 @@ export const BookmarkCard = ({ bookmark, className }: BookmarkCardProps) => {
       <div
         onClick={handleCardClick}
         className={cn(
-          'flex w-[31%] cursor-pointer flex-col gap-4 rounded-lg bg-white p-4 shadow-md transition-shadow hover:shadow-lg',
+          'flex w-[31%] cursor-pointer flex-col gap-16 rounded-lg bg-white p-16 shadow-md transition-shadow hover:shadow-lg',
           className,
         )}
       >

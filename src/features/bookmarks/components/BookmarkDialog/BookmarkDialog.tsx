@@ -125,7 +125,7 @@ export function BookmarkDialog({
           </Field>
 
           <DialogFooter>
-            <Button type='button' variant='outline' onClick={handleCancel}>
+            <Button type='button' variant='secondary' onClick={handleCancel}>
               Cancel
             </Button>
             <Button type='submit' disabled={isSubmitting}>
