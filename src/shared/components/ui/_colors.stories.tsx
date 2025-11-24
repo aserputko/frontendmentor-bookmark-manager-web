@@ -84,10 +84,10 @@ const ColorSwatch = ({ name, light, dark }: { name: string; light: string; dark:
     name.includes('red');
 
   return (
-    <div className='flex flex-col gap-2'>
-      <div className='flex items-center gap-4'>
+    <div className='flex flex-col gap-32'>
+      <div className='flex items-center gap-16'>
         <div
-          className='flex h-24 w-24 items-center justify-center rounded-lg border border-neutral-300'
+          className='flex h-96 w-[230px] items-center justify-center rounded-lg border border-neutral-300'
           style={{
             backgroundColor: light,
           }}
@@ -98,7 +98,7 @@ const ColorSwatch = ({ name, light, dark }: { name: string; light: string; dark:
             {name}
           </span>
         </div>
-        <div className='flex flex-col gap-1'>
+        <div className='flex flex-col'>
           <div className='text-sm font-semibold'>{name}</div>
           <div className='text-muted-foreground text-xs'>
             <div>Light: {light}</div>
@@ -111,12 +111,12 @@ const ColorSwatch = ({ name, light, dark }: { name: string; light: string; dark:
 };
 
 export const Default: Story = {
-  name: 'All Colors',
+  name: 'Colors',
   render: () => (
-    <div className='space-y-8'>
+    <div className='space-y-32'>
       <div>
-        <h2 className='mb-4 text-2xl font-bold'>Neutral Colors</h2>
-        <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
+        <h2 className='mb-16 text-2xl font-bold'>Neutral Colors</h2>
+        <div className='grid grid-cols-1 gap-24 md:grid-cols-2'>
           {colorDefinitions
             .filter((color) => color.name.startsWith('neutral'))
             .map((color) => (
@@ -131,8 +131,8 @@ export const Default: Story = {
       </div>
 
       <div>
-        <h2 className='mb-4 text-2xl font-bold'>Teal Colors</h2>
-        <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
+        <h2 className='mb-16 text-2xl font-bold'>Teal Colors</h2>
+        <div className='grid grid-cols-1 gap-24 md:grid-cols-2'>
           {colorDefinitions
             .filter((color) => color.name.startsWith('teal'))
             .map((color) => (
@@ -147,8 +147,8 @@ export const Default: Story = {
       </div>
 
       <div>
-        <h2 className='mb-4 text-2xl font-bold'>Red Colors</h2>
-        <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
+        <h2 className='mb-16 text-2xl font-bold'>Red Colors</h2>
+        <div className='grid grid-cols-1 gap-24 md:grid-cols-2'>
           {colorDefinitions
             .filter((color) => color.name.startsWith('red'))
             .map((color) => (

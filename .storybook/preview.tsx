@@ -1,6 +1,7 @@
 import type { Preview } from '@storybook/react';
 import { themes } from '@storybook/theming';
 import React, { useEffect } from 'react';
+import { useDarkMode } from 'storybook-dark-mode';
 import '../src/index.css';
 
 // Component to load Manrope font in Storybook
@@ -60,13 +61,20 @@ const preview: Preview = {
     },
   },
   decorators: [
-    (Story) => (
-      <FontLoader>
-        <div className='bg-background text-foreground h-full w-full p-4'>
-          <Story />
-        </div>
-      </FontLoader>
-    ),
+    (Story) => {
+      const isDark = useDarkMode();
+      console.log('isDark', isDark);
+      return (
+        <FontLoader>
+          <div
+            key={isDark ? 'dark' : 'light'}
+            className={`bg-background text-foreground h-full w-full p-24 ${isDark ? 'dark' : 'light'}`}
+          >
+            <Story />
+          </div>
+        </FontLoader>
+      );
+    },
   ],
 };
 

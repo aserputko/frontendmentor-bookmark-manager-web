@@ -17,7 +17,7 @@ export const Default: Story = {
 
 export const Headings: Story = {
   render: () => (
-    <div className='space-y-6'>
+    <div className='space-y-24'>
       <h1>Heading 1 - Text Preset 1</h1>
       <h1 className='font-semibold'>Heading 1 - Text Preset 1 (font-semibold)</h1>
       <h2>Heading 2 - Text Preset 2</h2>

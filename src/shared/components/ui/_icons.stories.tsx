@@ -33,9 +33,9 @@ export const Default: Story = {
 export const AllIcons: Story = {
   name: 'All Icons',
   render: () => (
-    <div className='grid grid-cols-4 gap-4 md:grid-cols-6 lg:grid-cols-8'>
+    <div className='grid grid-cols-4 gap-24 md:grid-cols-6 lg:grid-cols-8'>
       {Object.values(IconName).map((iconName) => (
-        <div key={iconName} className='flex flex-col items-center gap-2'>
+        <div key={iconName} className='flex flex-col items-center gap-8'>
           <Icon name={iconName} />
           <span className='text-xs'>{iconName}</span>
         </div>

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button, ButtonSize, ButtonVariant } from './button';
+import { Button, ButtonSize, ButtonVariant, type ButtonProps } from './button';
 import { IconName } from './icon';
 
 const meta: Meta<typeof Button> = {
@@ -11,10 +11,8 @@ const meta: Meta<typeof Button> = {
   tags: ['autodocs'],
   args: {
     children: 'Button CTA',
-    size: 'sm',
+    size: ButtonSize.Large,
     variant: ButtonVariant.Primary,
-    leftIcon: IconName.Plus,
-    rightIcon: IconName.Plus,
   },
   argTypes: {
     variant: {
@@ -55,42 +53,61 @@ const meta: Meta<typeof Button> = {
 export default meta;
 type Story = StoryObj<typeof Button>;
 
-export const Default: Story = {};
-
-export const Small: Story = {
+export const Default: Story = {
   args: {
-    size: 'sm',
-    children: 'Small Button',
+    children: 'Button CTA',
+    size: ButtonSize.Large,
+    variant: ButtonVariant.Primary,
+    leftIcon: IconName.Plus,
+    rightIcon: IconName.Plus,
   },
 };
 
-export const Large: Story = {
-  args: {
-    size: 'lg',
-    children: 'Large Button',
-  },
+export const Size: Story = {
+  name: 'Sizes',
+  render: (args: ButtonProps) => (
+    <div className='flex flex-wrap items-center gap-4'>
+      <Button {...args} size={ButtonSize.Small}>
+        Small Button
+      </Button>
+      <Button {...args} size={ButtonSize.Large}>
+        Large Button
+      </Button>
+    </div>
+  ),
+};
+
+export const Variants: Story = {
+  name: 'Variants',
+  render: (args: ButtonProps) => (
+    <div className='flex flex-wrap items-center gap-4'>
+      <Button {...args} variant={ButtonVariant.Primary}>
+        Primary Button
+      </Button>
+      <Button {...args} variant={ButtonVariant.Secondary}>
+        Secondary Button
+      </Button>
+      <Button {...args} variant={ButtonVariant.Error}>
+        Error Button
+      </Button>
+    </div>
+  ),
 };
 
 export const Disabled: Story = {
+  name: 'Disabled',
   args: {
     disabled: true,
-    children: 'Disabled',
+    children: 'Disabled Button',
   },
 };
 
-export const AllVariants: Story = {
-  render: () => (
-    <div className='flex flex-col gap-4'>
-      <div className='flex flex-wrap gap-2'>
-        <Button variant='primary'>Default</Button>
-      </div>
-      <div className='flex flex-wrap items-center gap-2'>
-        <Button size='sm'>Small</Button>
-        <Button size='lg'>Large</Button>
-      </div>
-      <div className='flex flex-wrap gap-2'>
-        <Button disabled>Disabled</Button>
-      </div>
+export const IconButton: Story = {
+  render: (args: ButtonProps) => (
+    <div className='flex flex-wrap items-center gap-4'>
+      <Button {...args} size={ButtonSize.Icon} leftIcon={IconName.Plus} />
+      <Button {...args} size={ButtonSize.Icon} leftIcon={IconName.Search} />
+      <Button {...args} size={ButtonSize.Icon} leftIcon={IconName.Edit} />
     </div>
   ),
 };
