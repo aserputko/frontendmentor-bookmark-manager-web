@@ -11,7 +11,9 @@ export const BookmarksNavbar = () => {
   return (
     <>
       <nav className='flex w-full items-center gap-16 border-b border-solid px-32 py-16'>
-        <Input placeholder='Search by title...' className='w-[320px]' />
+        <div className='flex w-full max-w-[320px]'>
+          <Input placeholder='Search by title...' />
+        </div>
 
         <div className='flex flex-auto'></div>
         <Button variant='primary' onClick={() => setIsDialogOpen(true)}>
