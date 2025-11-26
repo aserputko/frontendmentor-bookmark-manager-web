@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './avatar';
 const meta: Meta<typeof Avatar> = {
   title: 'Design System/Components/Avatar',
   component: Avatar,
+  subcomponents: { AvatarImage, AvatarFallback },
   parameters: {
     layout: 'centered',
   },

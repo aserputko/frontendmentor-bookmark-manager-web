@@ -63,8 +63,8 @@ export type IconName = (typeof IconName)[keyof typeof IconName];
 const iconVariants = cva('flex shrink-0 items-center justify-center', {
   variants: {
     size: {
-      [IconSize.Small]: 'h-12 max-h-12 min-h-12 w-12 max-w-12 min-w-12 ',
-      [IconSize.Large]: 'h-20 max-h-20 min-h-20 w-20 max-w-20 min-w-20 ',
+      [IconSize.Small]: 'h-3 max-h-3 min-h-3 w-3 max-w-3 min-w-3 ',
+      [IconSize.Large]: 'h-5 max-h-5 min-h-5 w-5 max-w-5 min-w-5 ',
     },
   },
   defaultVariants: {
