@@ -1,13 +1,21 @@
 import type { BookmarksResponse } from '../types';
 import { BookmarksResponseSchema } from '../types';
 
-export async function fetchBookmarks(page?: number, limit?: number): Promise<BookmarksResponse> {
+export async function fetchBookmarks(
+  page?: number,
+  limit?: number,
+  search?: string,
+): Promise<BookmarksResponse> {
   const params = new URLSearchParams();
   if (page !== undefined) {
     params.append('page', String(page));
   }
   if (limit !== undefined) {
     params.append('limit', String(limit));
+  }
+
+  if (search !== undefined) {
+    params.append('search', String(search));
   }
 
   const queryString = params.toString();

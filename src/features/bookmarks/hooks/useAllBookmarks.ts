@@ -4,12 +4,13 @@ import type { BookmarksResponse } from '../types';
 
 export const BOOKMARKS_DEFAULT_LIMIT = 12;
 
-export const ALL_BOOKMARKS_QUERY_KEY = ['bookmarks', 'infinite'] as const;
+export const ALL_BOOKMARKS_QUERY_KEY = (search: string) =>
+  ['bookmarks', 'infinite', search] as const;
 
-export function useAllBookmarks(limit = BOOKMARKS_DEFAULT_LIMIT) {
+export function useAllBookmarks(limit = BOOKMARKS_DEFAULT_LIMIT, searchValue = '') {
   return useInfiniteQuery<BookmarksResponse>({
-    queryKey: ALL_BOOKMARKS_QUERY_KEY,
-    queryFn: ({ pageParam }) => fetchBookmarks(pageParam as number, limit),
+    queryKey: ALL_BOOKMARKS_QUERY_KEY(searchValue),
+    queryFn: ({ pageParam }) => fetchBookmarks(pageParam as number, limit, searchValue),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       const { page, totalPages } = lastPage.meta;

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Spinner } from '../../../../shared/components/ui/spinner';
 import { BOOKMARKS_DEFAULT_LIMIT, useAllBookmarks } from '../../hooks';
 import type { Bookmark } from '../../types';
@@ -8,6 +9,8 @@ import { AllBookmarksError } from './AllBookmarksError';
 import { AllBookmarksLoading } from './AllBookmarksLoading';
 
 export const AllBookmarks = () => {
+  const [searchParams] = useSearchParams();
+  const searchValue = searchParams.get('s') || '';
   const {
     data,
     isLoading,
@@ -15,7 +18,7 @@ export const AllBookmarks = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useAllBookmarks(BOOKMARKS_DEFAULT_LIMIT);
+  } = useAllBookmarks(BOOKMARKS_DEFAULT_LIMIT, searchValue);
 
   const observerTarget = useRef<HTMLDivElement>(null);
 
