@@ -10,7 +10,7 @@ export const BookmarksNavbar = () => {
 
   return (
     <>
-      <nav className='flex w-full items-center gap-16 border-b border-solid px-32 py-16'>
+      <nav className='flex w-full items-center gap-4 border-b border-solid px-8 py-4'>
         <div className='flex w-full max-w-[320px]'>
           <Input placeholder='Search by title...' />
         </div>

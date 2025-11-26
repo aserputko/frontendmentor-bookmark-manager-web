@@ -76,7 +76,7 @@ export function BookmarkDialog({
           {informer && <DialogDescription>{informer}</DialogDescription>}
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className='space-y-16' noValidate>
+        <form onSubmit={handleSubmit(onSubmit)} className='space-y-4' noValidate>
           <Field>
             <FieldLabel htmlFor='title'>Title</FieldLabel>
             <FieldContent>
