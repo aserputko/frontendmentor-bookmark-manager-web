@@ -1,7 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render } from '@testing-library/react';
 import { screen } from '@testing-library/dom';
+import { render } from '@testing-library/react';
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { BookmarksNavbar } from './BookmarksNavbar';
 
 jest.mock('../../api', () => ({
@@ -17,7 +18,11 @@ function renderWithClient(ui: React.ReactElement) {
     },
   });
 
-  return render(<QueryClientProvider client={client}>{ui}</QueryClientProvider>);
+  return render(
+    <QueryClientProvider client={client}>
+      <MemoryRouter>{ui}</MemoryRouter>
+    </QueryClientProvider>,
+  );
 }
 
 describe('BookmarksNavbar', () => {

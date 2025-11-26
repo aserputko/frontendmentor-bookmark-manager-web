@@ -1,29 +1,14 @@
 import { Plus } from 'lucide-react';
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '../../../../shared/components/ui/avatar';
 import { Button } from '../../../../shared/components/ui/button';
 import { Input } from '../../../../shared/components/ui/input';
-import { useDebounce } from '../../../../shared/hooks/use-debounce';
+import { useSearchBookmarks } from '../../hooks';
 import { AddBookmarkDialog } from '../AddBookmarkDialog';
 
 export const BookmarksNavbar = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const urlSearchValue = searchParams.get('s') || '';
-  const [searchValue, setSearchValue] = useState(urlSearchValue);
-  const debouncedSearchValue = useDebounce(searchValue, 350);
-
-  // Update URL when debounced search value changes
-  useEffect(() => {
-    if (debouncedSearchValue !== urlSearchValue) {
-      if (debouncedSearchValue) {
-        setSearchParams({ s: debouncedSearchValue }, { replace: true });
-      } else {
-        setSearchParams({}, { replace: true });
-      }
-    }
-  }, [debouncedSearchValue, urlSearchValue, setSearchParams]);
+  const { searchValue, setSearchValue } = useSearchBookmarks();
 
   return (
     <>

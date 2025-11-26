@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render } from '@testing-library/react';
 import { screen } from '@testing-library/dom';
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import { AllBookmarks } from './AllBookmarks';
 
 // Mock the hooks module to control states
@@ -28,7 +29,11 @@ function renderWithClient(ui: React.ReactElement) {
       mutations: { retry: false },
     },
   });
-  return render(<QueryClientProvider client={client}>{ui}</QueryClientProvider>);
+  return render(
+    <QueryClientProvider client={client}>
+      <MemoryRouter>{ui}</MemoryRouter>
+    </QueryClientProvider>,
+  );
 }
 
 describe('AllBookmarks', () => {
