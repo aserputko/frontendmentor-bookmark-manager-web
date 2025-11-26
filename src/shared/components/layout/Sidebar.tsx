@@ -9,21 +9,21 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@/shared/components/ui/sidebar';
-import { Archive, Home } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Icon, IconName, IconSize } from '../ui/icon';
 
 // Menu items.
 const items = [
   {
     title: 'Home',
     url: '/bookmarks/all',
-    icon: Home,
+    icon: IconName.House,
   },
   {
     title: 'Archived',
     url: '/bookmarks/archived',
-    icon: Archive,
+    icon: IconName.Archive,
   },
 ];
 
@@ -45,10 +45,13 @@ export function AppSidebar() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton
+                    asChild
+                    variant={location.pathname === item.url ? 'active' : 'default'}
+                  >
                     <Link to={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
+                      <Icon name={item.icon} size={IconSize.Large} />
+                      <span className='text-preset-3 flex flex-auto'>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
