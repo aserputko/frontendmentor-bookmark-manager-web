@@ -8,10 +8,16 @@ const meta: Meta<typeof Avatar> = {
     layout: 'centered',
   },
   tags: ['autodocs'],
+  args: {
+    className: '',
+  },
   argTypes: {
     className: {
       control: 'text',
       description: 'Additional CSS classes',
+      table: {
+        type: { summary: 'string' },
+      },
     },
   },
 };
@@ -20,8 +26,8 @@ export default meta;
 type Story = StoryObj<typeof Avatar>;
 
 export const Default: Story = {
-  render: () => (
-    <Avatar>
+  render: (args) => (
+    <Avatar {...args}>
       <AvatarImage src='https://github.com/shadcn.png' alt='Avatar' />
       <AvatarFallback>CN</AvatarFallback>
     </Avatar>
@@ -30,8 +36,8 @@ export const Default: Story = {
 
 export const WithFallback: Story = {
   name: 'With Fallback',
-  render: () => (
-    <Avatar>
+  render: (args) => (
+    <Avatar {...args}>
       <AvatarImage src='https://invalid-url-that-will-fail.png' alt='Avatar' />
       <AvatarFallback>JD</AvatarFallback>
     </Avatar>
@@ -40,8 +46,8 @@ export const WithFallback: Story = {
 
 export const FallbackOnly: Story = {
   name: 'Fallback Only',
-  render: () => (
-    <Avatar>
+  render: (args) => (
+    <Avatar {...args}>
       <AvatarFallback>AB</AvatarFallback>
     </Avatar>
   ),
