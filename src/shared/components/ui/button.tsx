@@ -25,7 +25,7 @@ export type ButtonSize = (typeof ButtonSize)[keyof typeof ButtonSize];
 export const buttonVariants = cva(
   cn(
     'inline-flex items-center justify-center shrink-0 gap-4 text-preset-3',
-    'border-2 border-solid rounded-8 text-neutral-0',
+    'border-2 border-solid rounded-lg text-neutral-0',
     'whitespace-nowrap outline-none transition-all',
     'cursor-pointer',
     'disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed',
@@ -54,9 +54,9 @@ export const buttonVariants = cva(
         ),
       },
       size: {
-        [ButtonSize.Small]: 'px-10 py-8 max-h-[42px] min-h-[42px]',
-        [ButtonSize.Large]: 'px-16 py-10 max-h-[46px] min-h-[46px]',
-        [ButtonSize.Icon]: 'p-6 max-h-32 min-h-32px h-32 w-32 min-w-32 max-w-32',
+        [ButtonSize.Small]: 'px-[10px] py-[8px] max-h-[42px] min-h-[42px]',
+        [ButtonSize.Large]: 'px-[16px] py-[10px] max-h-[46px] min-h-[46px]',
+        [ButtonSize.Icon]: 'p-[6px] max-h-8 min-h-8 h-8 w-8 min-w-8 max-w-8',
       },
     },
     defaultVariants: {

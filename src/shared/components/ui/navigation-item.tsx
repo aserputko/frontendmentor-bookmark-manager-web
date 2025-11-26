@@ -22,7 +22,7 @@ export const NavigationItem = ({
   return (
     <div
       className={cn(
-        'rounded-6 mx-12 flex flex-auto items-center gap-8 px-12 py-8',
+        'mx-3 flex flex-auto items-center gap-2 rounded-sm px-3 py-2',
         'bg-neutral-0 text-neutral-800',
         'hover:bg-neutral-100 hover:text-neutral-900',
         active && 'bg-neutral-100 text-neutral-900',

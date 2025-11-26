@@ -68,7 +68,7 @@ const preview: Preview = {
         <FontLoader>
           <div
             key={isDark ? 'dark' : 'light'}
-            className={`bg-background text-foreground h-full w-full p-24 ${isDark ? 'dark' : 'light'}`}
+            className={`bg-background text-foreground h-full w-full p-6 ${isDark ? 'dark' : 'light'}`}
           >
             <Story />
           </div>
