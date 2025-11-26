@@ -10,8 +10,8 @@ import {
   SidebarMenuItem,
 } from '@/shared/components/ui/sidebar';
 import { Link } from 'react-router-dom';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Icon, IconName, IconSize } from '../ui/icon';
+import { Logo } from '../ui/logo';
 
 // Menu items.
 const items = [
@@ -31,13 +31,7 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader>
-        <div className='flex items-center gap-4'>
-          <Avatar className='rounded-lg'>
-            <AvatarImage src='https://github.com/evilrabbit.png' alt='Bookmark Manager' />
-            <AvatarFallback>BM</AvatarFallback>
-          </Avatar>
-          <h4>Bookmark Manager!</h4>
-        </div>
+        <Logo />
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
