@@ -63,7 +63,7 @@ export const BookmarkCard = ({ bookmark, className }: BookmarkCardProps) => {
 
         <div className='mx-4 flex h-px max-h-px flex-auto border-b border-solid border-neutral-300'></div>
 
-        <div className='flex min-h-[154px] flex-col gap-4 px-4'>
+        <div className='flex min-h-[120px] flex-col gap-4 px-4'>
           <p className='text-preset-4 text-neutral-800'>{bookmark.description}</p>
 
           {bookmark.tags.length > 0 && (
@@ -85,7 +85,7 @@ export const BookmarkCard = ({ bookmark, className }: BookmarkCardProps) => {
         <div className='flex gap-4 px-4 pb-3'>
           <span className='flex items-center justify-center gap-1'>
             <Icon className='mb-[2px] text-neutral-800' name={IconName.Eye} size={IconSize.Small} />
-            <span className='text-preset-5 text-neutral-800'>47</span>
+            <span className='text-preset-5 text-neutral-800'>1</span>
           </span>
 
           <span className='flex items-center justify-center gap-1'>
