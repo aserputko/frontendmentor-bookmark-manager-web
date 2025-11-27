@@ -1,11 +1,9 @@
 import { Bookmark as BookmarkIcon } from 'lucide-react';
-import { useState } from 'react';
-import { Button } from '../../../../shared/components/ui/button';
 import { Icon, IconName, IconSize } from '../../../../shared/components/ui/icon';
 import { cn } from '../../../../shared/lib/utils';
 import type { Bookmark } from '../../types';
 import { getHostnameFromURL } from '../../utils';
-import { EditBookmarkDialog } from '../EditBookmarkDialog/EditBookmarkDialog';
+import { BookmarkMenu } from './BookmarkMenu';
 
 type BookmarkCardProps = {
   bookmark: Bookmark;
@@ -13,12 +11,6 @@ type BookmarkCardProps = {
 };
 
 export const BookmarkCard = ({ bookmark, className }: BookmarkCardProps) => {
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-
-  const handleCardClick = () => {
-    setIsEditDialogOpen(true);
-  };
-
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.stopPropagation();
   };
@@ -53,12 +45,8 @@ export const BookmarkCard = ({ bookmark, className }: BookmarkCardProps) => {
               {getHostnameFromURL(bookmark.websiteURL)}
             </a>
           </div>
-          <Button
-            leftIcon={IconName.EllipsisVertical}
-            size='icon'
-            variant='primary'
-            onClick={handleCardClick}
-          ></Button>
+
+          <BookmarkMenu bookmark={bookmark} />
         </div>
 
         <div className='mx-4 flex h-px max-h-px flex-auto border-b border-solid border-neutral-300'></div>
@@ -117,12 +105,6 @@ export const BookmarkCard = ({ bookmark, className }: BookmarkCardProps) => {
           </span>
         </div>
       </div>
-
-      <EditBookmarkDialog
-        open={isEditDialogOpen}
-        onOpenChange={setIsEditDialogOpen}
-        bookmark={bookmark}
-      />
     </>
   );
 };

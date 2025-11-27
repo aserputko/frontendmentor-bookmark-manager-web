@@ -14,9 +14,9 @@ export function EditBookmarkDialog({ open, onOpenChange, bookmark }: EditBookmar
 
   const onSubmit = async (data: AddBookmarkForm) => {
     try {
+      onOpenChange(false);
       await editBookmarkMutation.mutateAsync(data);
       toast.success('The bookmark is updated');
-      onOpenChange(false);
     } catch {
       toast.error('The bookmark is not updated, Please try again');
     }
