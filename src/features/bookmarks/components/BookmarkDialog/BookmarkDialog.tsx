@@ -12,6 +12,7 @@ import { Input } from '@/shared/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { Textarea } from '../../../../shared/components/ui/textarea';
 import { AddBookmarkFormSchema, type AddBookmarkForm } from '../../types';
 
 interface BookmarkDialogProps {
@@ -88,7 +89,7 @@ export function BookmarkDialog({
           <Field>
             <FieldLabel htmlFor='description'>Description</FieldLabel>
             <FieldContent>
-              <Input
+              <Textarea
                 id='description'
                 {...register('description')}
                 aria-invalid={!!errors.description}
