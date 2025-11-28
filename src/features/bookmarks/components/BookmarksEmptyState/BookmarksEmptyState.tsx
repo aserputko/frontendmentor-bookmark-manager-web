@@ -11,7 +11,7 @@ import {
 } from '../../../../shared/components/ui/empty';
 import { AddBookmarkDialog } from '../AddBookmarkDialog';
 
-export const AllBookmarksEmpty = () => {
+export const BookmarksEmptyState = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (

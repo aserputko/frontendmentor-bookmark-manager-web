@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render } from '@testing-library/react';
 import { screen } from '@testing-library/dom';
+import { render } from '@testing-library/react';
 import React from 'react';
-import { AllBookmarksEmpty } from './AllBookmarksEmpty';
+import { BookmarksEmptyState } from './BookmarksEmptyState';
 
 // Mock the hooks module
 jest.mock('../../hooks', () => ({
@@ -29,9 +29,9 @@ function renderWithClient(ui: React.ReactElement) {
   return render(<QueryClientProvider client={client}>{ui}</QueryClientProvider>);
 }
 
-describe('AllBookmarksEmpty', () => {
+describe('BookmarksEmptyState', () => {
   it('renders empty message and CTA', () => {
-    renderWithClient(<AllBookmarksEmpty />);
+    renderWithClient(<BookmarksEmptyState />);
     expect(screen.getByText(/no bookmarks yet/i)).toBeInTheDocument();
     expect(screen.getByText(/you haven't added any bookmarks yet/i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /add bookmark/i })).toBeInTheDocument();

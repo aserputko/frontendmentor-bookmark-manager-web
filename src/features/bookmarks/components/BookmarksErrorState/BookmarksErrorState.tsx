@@ -7,7 +7,7 @@ import {
   EmptyTitle,
 } from '../../../../shared/components/ui/empty';
 
-export const AllBookmarksError = () => {
+export const BookmarksErrorState = () => {
   return (
     <div className='flex w-full flex-auto flex-col items-center justify-center gap-4 bg-teal-50 p-8'>
       <Empty>

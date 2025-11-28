@@ -4,9 +4,9 @@ import { Spinner } from '../../../../shared/components/ui/spinner';
 import { BOOKMARKS_DEFAULT_LIMIT, useAllBookmarks } from '../../hooks';
 import type { Bookmark } from '../../types';
 import { BookmarkCard } from '../BookmarkCard';
-import { AllBookmarksEmpty } from './AllBookmarksEmpty';
-import { AllBookmarksError } from './AllBookmarksError';
-import { AllBookmarksLoading } from './AllBookmarksLoading';
+import { BookmarksEmptyState } from '../BookmarksEmptyState';
+import { BookmarksErrorState } from '../BookmarksErrorState';
+import { BookmarksLoadingState } from '../BookmarksLoadingState';
 
 export const AllBookmarks = () => {
   const [searchParams] = useSearchParams();
@@ -45,15 +45,15 @@ export const AllBookmarks = () => {
   const isEmpty = !isLoading && bookmarks.length === 0;
 
   if (isLoading) {
-    return <AllBookmarksLoading />;
+    return <BookmarksLoadingState />;
   }
 
   if (isError) {
-    return <AllBookmarksError />;
+    return <BookmarksErrorState />;
   }
 
   if (isEmpty) {
-    return <AllBookmarksEmpty />;
+    return <BookmarksEmptyState />;
   }
 
   return (
