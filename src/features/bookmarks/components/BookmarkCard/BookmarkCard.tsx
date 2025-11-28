@@ -11,6 +11,9 @@ type BookmarkCardProps = {
 };
 
 export const BookmarkCard = ({ bookmark, className }: BookmarkCardProps) => {
+  const isArchived = bookmark.archived ?? false;
+  const isPinned = bookmark.pinned ?? false;
+
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.stopPropagation();
   };
@@ -51,7 +54,7 @@ export const BookmarkCard = ({ bookmark, className }: BookmarkCardProps) => {
 
         <div className='mx-4 flex h-px max-h-px flex-auto border-b border-solid border-neutral-300'></div>
 
-        <div className='flex min-h-[120px] flex-col gap-4 px-4'>
+        <div className='flex min-h-[120px] flex-auto flex-col gap-4 px-4'>
           <p className='text-preset-4 text-neutral-800'>{bookmark.description}</p>
 
           {bookmark.tags.length > 0 && (
@@ -103,6 +106,26 @@ export const BookmarkCard = ({ bookmark, className }: BookmarkCardProps) => {
               })}
             </span>
           </span>
+
+          <span className='flex flex-auto'></span>
+
+          {isPinned && (
+            <span className='flex items-center justify-center gap-1'>
+              <Icon
+                className='mb-[2px] text-neutral-800'
+                name={IconName.Pin}
+                size={IconSize.Medium}
+              />
+            </span>
+          )}
+
+          {isArchived && (
+            <span className='flex items-center justify-center gap-1'>
+              <span className='text-preset-5 rounded bg-neutral-100 px-1 text-neutral-800'>
+                Archived
+              </span>
+            </span>
+          )}
         </div>
       </div>
     </>

@@ -61,22 +61,24 @@ export const BookmarkMenu = ({ bookmark }: BookmarkMenuProps) => {
             <Icon name={IconName.Copy} />
             <span>Copy URL</span>
           </DropdownMenuItem>
-          {!isPinned && (
+          {!isPinned && !isArchived && (
             <DropdownMenuItem onSelect={handlePinBookmark}>
               <Icon name={IconName.Pin} />
               <span>Pin</span>
             </DropdownMenuItem>
           )}
-          {isPinned && (
+          {isPinned && !isArchived && (
             <DropdownMenuItem onSelect={handleUnpinBookmark}>
               <Icon name={IconName.PinOff} />
               <span>Unpin</span>
             </DropdownMenuItem>
           )}
-          <DropdownMenuItem onSelect={handleEditBookmark}>
-            <Icon name={IconName.Edit} />
-            <span>Edit</span>
-          </DropdownMenuItem>
+          {!isArchived && (
+            <DropdownMenuItem onSelect={handleEditBookmark}>
+              <Icon name={IconName.Edit} />
+              <span>Edit</span>
+            </DropdownMenuItem>
+          )}
           {!isArchived && (
             <DropdownMenuItem onSelect={handleArchiveBookmark}>
               <Icon name={IconName.Archive} />

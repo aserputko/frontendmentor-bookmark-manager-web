@@ -53,6 +53,7 @@ export const IconName = {
 
 export const IconSize = {
   Small: 'sm',
+  Medium: 'md',
   Large: 'lg',
 } as const;
 
@@ -64,6 +65,7 @@ const iconVariants = cva('flex shrink-0 items-center justify-center', {
   variants: {
     size: {
       [IconSize.Small]: 'h-3 max-h-3 min-h-3 w-3 max-w-3 min-w-3 ',
+      [IconSize.Medium]: 'h-4 max-h-4 min-h-4 w-4 max-w-4 min-w-4 ',
       [IconSize.Large]: 'h-5 max-h-5 min-h-5 w-5 max-w-5 min-w-5 ',
     },
   },
