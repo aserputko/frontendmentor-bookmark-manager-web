@@ -42,6 +42,7 @@ describe('EditBookmarkDialog', () => {
       { id: 'tag-1', title: 'React', createdAt: '2024-01-01', updatedAt: '2024-01-01' },
       { id: 'tag-2', title: 'TypeScript', createdAt: '2024-01-01', updatedAt: '2024-01-01' },
     ],
+    visitedCount: 0,
   };
 
   const mockMutateAsync = jest.fn();
