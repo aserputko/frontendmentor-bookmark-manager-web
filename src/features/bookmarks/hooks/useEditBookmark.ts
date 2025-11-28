@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { editBookmark } from '../api';
 import type { AddBookmarkForm, AddBookmarkRequest } from '../types';
+import { bookmarkQueryKeys } from './bookmarkQueryKeys';
 
 export function useEditBookmark(bookmarkId: string) {
   const queryClient = useQueryClient();
@@ -26,7 +27,7 @@ export function useEditBookmark(bookmarkId: string) {
     },
     onSuccess: () => {
       // Invalidate all infinite bookmark queries (matches all limit variants)
-      queryClient.invalidateQueries({ queryKey: ['bookmarks', 'infinite'] });
+      queryClient.invalidateQueries({ queryKey: bookmarkQueryKeys.all() });
     },
   });
 }

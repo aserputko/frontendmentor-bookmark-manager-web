@@ -3,7 +3,7 @@ import { Icon, IconName, IconSize } from '../../../../shared/components/ui/icon'
 import { cn } from '../../../../shared/lib/utils';
 import type { Bookmark } from '../../types';
 import { getHostnameFromURL } from '../../utils';
-import { BookmarkMenu } from './BookmarkMenu';
+import { BookmarkMenu } from '../BookmarkMenu';
 
 type BookmarkCardProps = {
   bookmark: Bookmark;
@@ -27,7 +27,7 @@ export const BookmarkCard = ({ bookmark, className }: BookmarkCardProps) => {
           <span className='text-neutral-0 flex size-11 min-h-11 min-w-11 items-center justify-center rounded-lg bg-teal-700'>
             <BookmarkIcon strokeWidth={2.5} size={20} />
           </span>
-          <div className='flex max-w-[206px] flex-col gap-1'>
+          <div className='flex max-w-[206px] flex-auto flex-col gap-1'>
             <h2
               className='text-preset-2 line-clamp-1 truncate text-neutral-900'
               title={bookmark.title}

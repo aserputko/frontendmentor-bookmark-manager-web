@@ -7,6 +7,7 @@ import {
   DropdownMenuTrigger,
 } from '../../../../shared/components/ui/dropdown-menu';
 import { Icon, IconName } from '../../../../shared/components/ui/icon';
+import { useArchiveBookmark } from '../../hooks';
 import type { Bookmark } from '../../types';
 import { EditBookmarkDialog } from '../EditBookmarkDialog/EditBookmarkDialog';
 
@@ -16,9 +17,16 @@ type BookmarkMenuProps = {
 
 export const BookmarkMenu = ({ bookmark }: BookmarkMenuProps) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const { mutate: archiveBookmark } = useArchiveBookmark();
+
+  const isArchived = bookmark.archived ?? false;
 
   const handleEditBookmark = () => {
     setIsEditDialogOpen(true);
+  };
+
+  const handleArchiveBookmark = () => {
+    archiveBookmark(bookmark.id);
   };
 
   return (
@@ -48,16 +56,19 @@ export const BookmarkMenu = ({ bookmark }: BookmarkMenuProps) => {
             <Icon name={IconName.Edit} />
             <span>Edit</span>
           </DropdownMenuItem>
-          <DropdownMenuItem disabled>
-            <Icon name={IconName.Archive} />
-            <span>Archive</span>
-          </DropdownMenuItem>
-          {/* 
-        <DropdownMenuItem disabled>
-          <Icon name={IconName.Refresh} />
-          <span>Unarchive</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem disabled>
+          {!isArchived && (
+            <DropdownMenuItem onSelect={handleArchiveBookmark}>
+              <Icon name={IconName.Archive} />
+              <span>Archive</span>
+            </DropdownMenuItem>
+          )}
+          {isArchived && (
+            <DropdownMenuItem disabled>
+              <Icon name={IconName.Refresh} />
+              <span>Unarchive</span>
+            </DropdownMenuItem>
+          )}
+          {/* <DropdownMenuItem disabled>
           <Icon name={IconName.Trash} />
           <span>Delete Permenantly</span>
         </DropdownMenuItem> */}
