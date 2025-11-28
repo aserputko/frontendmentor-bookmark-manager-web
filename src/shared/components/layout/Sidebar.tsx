@@ -38,10 +38,7 @@ export function AppSidebar() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    asChild
-                    variant={location.pathname === item.url ? 'active' : 'default'}
-                  >
+                  <SidebarMenuButton asChild variant='default'>
                     <Link to={item.url}>
                       <Icon name={item.icon} size={IconSize.Large} />
                       <span className='text-preset-3 flex flex-auto'>{item.title}</span>

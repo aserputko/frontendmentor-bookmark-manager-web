@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Spinner } from '../../../../shared/components/ui/spinner';
-import { BOOKMARKS_DEFAULT_LIMIT, useAllBookmarks } from '../../hooks';
-import type { Bookmark } from '../../types';
+import { useAllBookmarks } from '../../hooks';
+import { DEFAULT_PAGE_SIZE, type Bookmark } from '../../types';
 import { BookmarkCard } from '../BookmarkCard';
 import { BookmarksEmptyState } from '../BookmarksEmptyState';
 import { BookmarksErrorState } from '../BookmarksErrorState';
@@ -18,7 +18,7 @@ export const AllBookmarks = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useAllBookmarks(BOOKMARKS_DEFAULT_LIMIT, searchValue);
+  } = useAllBookmarks(DEFAULT_PAGE_SIZE, searchValue);
 
   const observerTarget = useRef<HTMLDivElement>(null);
 

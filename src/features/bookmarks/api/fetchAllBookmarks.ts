@@ -5,6 +5,7 @@ export async function fetchBookmarks(
   page?: number,
   limit?: number,
   search?: string,
+  archived?: boolean,
 ): Promise<BookmarksResponse> {
   const params = new URLSearchParams();
   if (page !== undefined) {
@@ -16,6 +17,10 @@ export async function fetchBookmarks(
 
   if (search !== undefined) {
     params.append('search', String(search));
+  }
+
+  if (archived !== undefined) {
+    params.append('archived', String(archived));
   }
 
   const queryString = params.toString();

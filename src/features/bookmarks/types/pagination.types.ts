@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import { BookmarkSchema } from './bookmark.types';
 
+export const DEFAULT_PAGE_SIZE = 12;
+
 // Pagination metadata schema
 export const PaginationMetaSchema = z.object({
   total: z.number(),
@@ -18,4 +20,3 @@ export const BookmarksResponseSchema = z.object({
 });
 
 export type BookmarksResponse = z.infer<typeof BookmarksResponseSchema>;
-
