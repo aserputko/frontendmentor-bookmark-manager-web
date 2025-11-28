@@ -12,6 +12,7 @@ import {
   useCopyBookmarkURL,
   usePinBookmark,
   useUnpinBookmark,
+  useVisitBookmark,
 } from '../../hooks';
 import { useUnarchiveBookmark } from '../../hooks/useUnarchiveBookmark';
 import type { Bookmark } from '../../types';
@@ -28,6 +29,7 @@ export const BookmarkMenu = ({ bookmark }: BookmarkMenuProps) => {
   const { mutate: pinBookmark } = usePinBookmark();
   const { mutate: unpinBookmark } = useUnpinBookmark();
   const { copyToClipboard } = useCopyBookmarkURL();
+  const { mutate: visitBookmark } = useVisitBookmark();
 
   const isArchived = bookmark.archived ?? false;
   const isPinned = bookmark.pinned ?? false;
@@ -56,6 +58,10 @@ export const BookmarkMenu = ({ bookmark }: BookmarkMenuProps) => {
     copyToClipboard(bookmark.websiteURL);
   };
 
+  const handleVisitBookmark = () => {
+    visitBookmark({ id: bookmark.id, websiteURL: bookmark.websiteURL });
+  };
+
   return (
     <>
       <DropdownMenu>
@@ -63,7 +69,7 @@ export const BookmarkMenu = ({ bookmark }: BookmarkMenuProps) => {
           <Button leftIcon={IconName.EllipsisVertical} size={ButtonSize.Icon} />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem disabled>
+          <DropdownMenuItem onSelect={handleVisitBookmark}>
             <Icon name={IconName.Link} />
             <span>Visit</span>
           </DropdownMenuItem>

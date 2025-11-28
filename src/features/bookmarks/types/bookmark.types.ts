@@ -12,6 +12,7 @@ export const BookmarkSchema = z.object({
   tags: z.array(TagSchema),
   archived: z.boolean().optional(),
   pinned: z.boolean().optional(),
+  visitedCount: z.number(),
 });
 
 export type Bookmark = z.infer<typeof BookmarkSchema>;

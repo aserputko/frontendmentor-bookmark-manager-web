@@ -5,3 +5,4 @@ export * from './fetchAllBookmarks';
 export * from './pinBookmark';
 export * from './unarchiveBookmark';
 export * from './unpinBookmark';
+export * from './visitBookmark';

@@ -76,7 +76,7 @@ export const BookmarkCard = ({ bookmark, className }: BookmarkCardProps) => {
         <div className='flex gap-4 px-4 pb-3'>
           <span className='flex items-center justify-center gap-1'>
             <Icon className='mb-[2px] text-neutral-800' name={IconName.Eye} size={IconSize.Small} />
-            <span className='text-preset-5 text-neutral-800'>1</span>
+            <span className='text-preset-5 text-neutral-800'>{bookmark.visitedCount}</span>
           </span>
 
           <span className='flex items-center justify-center gap-1'>

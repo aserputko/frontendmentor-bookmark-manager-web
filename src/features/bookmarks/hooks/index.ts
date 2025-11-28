@@ -7,3 +7,4 @@ export * from './useEditBookmark';
 export * from './usePinBookmark';
 export * from './useSearchBookmarks';
 export * from './useUnpinBookmark';
+export * from './useVisitBookmark';
