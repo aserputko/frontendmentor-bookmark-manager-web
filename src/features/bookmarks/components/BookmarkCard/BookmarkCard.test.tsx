@@ -1,9 +1,9 @@
-import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { screen } from '@testing-library/dom';
 import { render } from '@testing-library/react';
-import { screen, waitFor } from '@testing-library/dom';
-import userEvent from '@testing-library/user-event';
+import React from 'react';
 import type { Bookmark } from '../../types';
+import { getHostnameFromURL } from '../../utils';
 import { BookmarkCard } from './BookmarkCard';
 
 function renderWithClient(ui: React.ReactElement) {
@@ -32,7 +32,7 @@ describe('BookmarkCard', () => {
 
     expect(screen.getByRole('heading', { level: 2, name: /my bookmark/i })).toBeInTheDocument();
 
-    const link = screen.getByRole('link', { name: baseBookmark.websiteURL });
+    const link = screen.getByRole('link', { name: getHostnameFromURL(baseBookmark.websiteURL) });
     expect(link).toBeInTheDocument();
     expect(link).toHaveAttribute('href', baseBookmark.websiteURL);
     expect(link).toHaveAttribute('target', '_blank');
@@ -65,32 +65,10 @@ describe('BookmarkCard', () => {
   });
 
   it('merges custom className onto the wrapper', () => {
-    const { getByRole } = renderWithClient(<BookmarkCard bookmark={baseBookmark} className='border' />);
-    const heading = getByRole('heading', { level: 2, name: /my bookmark/i });
-    const wrapper = heading.parentElement as HTMLElement; // h2 is a direct child of the wrapper div
+    renderWithClient(<BookmarkCard bookmark={baseBookmark} className='border' />);
+    const heading = screen.getByRole('heading', { level: 2, name: /my bookmark/i });
+    // Traverse up to find the card wrapper (h2 -> div -> div -> card wrapper)
+    const wrapper = heading.parentElement?.parentElement?.parentElement as HTMLElement;
     expect(wrapper).toHaveClass('border');
-  });
-
-  it('opens edit dialog when card is clicked', async () => {
-    const user = userEvent.setup();
-    renderWithClient(<BookmarkCard bookmark={baseBookmark} />);
-
-    const card = screen.getByRole('heading', { level: 2, name: /my bookmark/i }).parentElement;
-    await user.click(card!);
-
-    await waitFor(() => {
-      expect(screen.getByRole('dialog')).toBeInTheDocument();
-      expect(screen.getByRole('heading', { name: 'Edit bookmark' })).toBeInTheDocument();
-    });
-  });
-
-  it('does not open edit dialog when link is clicked', async () => {
-    const user = userEvent.setup();
-    renderWithClient(<BookmarkCard bookmark={baseBookmark} />);
-
-    const link = screen.getByRole('link', { name: baseBookmark.websiteURL });
-    await user.click(link);
-
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 });

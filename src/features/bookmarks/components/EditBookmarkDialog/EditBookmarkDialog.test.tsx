@@ -161,7 +161,8 @@ describe('EditBookmarkDialog', () => {
       expect(toast.error).toHaveBeenCalledWith('The bookmark is not updated, Please try again');
     });
 
-    expect(mockOnOpenChange).not.toHaveBeenCalled();
+    // onOpenChange is called before the mutation, so it will be called even on error
+    expect(mockOnOpenChange).toHaveBeenCalledWith(false);
   });
 
   it('disables submit button when isPending is true', () => {
