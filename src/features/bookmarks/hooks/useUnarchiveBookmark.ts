@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { archiveBookmark } from '../api';
+import { unarchiveBookmark } from '../api';
 import { bookmarkQueryKeys } from './bookmarkQueryKeys';
 
-export function useArchiveBookmark() {
+export function useUnarchiveBookmark() {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (bookmarkId: string) => {
-      return archiveBookmark(bookmarkId);
+      return unarchiveBookmark(bookmarkId);
     },
     onSuccess: () => {
       // Invalidate all infinite bookmark queries (matches all limit variants)
