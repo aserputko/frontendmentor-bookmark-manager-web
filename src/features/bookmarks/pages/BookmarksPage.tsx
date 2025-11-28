@@ -1,13 +1,12 @@
 import { Outlet } from 'react-router-dom';
-import Layout from '../../../shared/components/layout/Layout';
+import { BookmarkLayout } from '../components/BookmarkLayout';
 import { BookmarksNavbar } from '../components/BookmarksNavbar';
 
 export const BookmarksPage = () => {
   return (
-    <Layout>
+    <BookmarkLayout>
       <BookmarksNavbar />
-
       <Outlet />
-    </Layout>
+    </BookmarkLayout>
   );
 };
