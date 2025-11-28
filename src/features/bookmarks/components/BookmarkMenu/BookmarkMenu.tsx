@@ -7,7 +7,12 @@ import {
   DropdownMenuTrigger,
 } from '../../../../shared/components/ui/dropdown-menu';
 import { Icon, IconName } from '../../../../shared/components/ui/icon';
-import { useArchiveBookmark, usePinBookmark, useUnpinBookmark } from '../../hooks';
+import {
+  useArchiveBookmark,
+  useCopyBookmarkURL,
+  usePinBookmark,
+  useUnpinBookmark,
+} from '../../hooks';
 import { useUnarchiveBookmark } from '../../hooks/useUnarchiveBookmark';
 import type { Bookmark } from '../../types';
 import { EditBookmarkDialog } from '../EditBookmarkDialog/EditBookmarkDialog';
@@ -22,6 +27,7 @@ export const BookmarkMenu = ({ bookmark }: BookmarkMenuProps) => {
   const { mutate: unarchiveBookmark } = useUnarchiveBookmark();
   const { mutate: pinBookmark } = usePinBookmark();
   const { mutate: unpinBookmark } = useUnpinBookmark();
+  const { copyToClipboard } = useCopyBookmarkURL();
 
   const isArchived = bookmark.archived ?? false;
   const isPinned = bookmark.pinned ?? false;
@@ -46,6 +52,10 @@ export const BookmarkMenu = ({ bookmark }: BookmarkMenuProps) => {
     unpinBookmark(bookmark.id);
   };
 
+  const handleCopyURL = () => {
+    copyToClipboard(bookmark.websiteURL);
+  };
+
   return (
     <>
       <DropdownMenu>
@@ -57,7 +67,7 @@ export const BookmarkMenu = ({ bookmark }: BookmarkMenuProps) => {
             <Icon name={IconName.Link} />
             <span>Visit</span>
           </DropdownMenuItem>
-          <DropdownMenuItem disabled>
+          <DropdownMenuItem onSelect={handleCopyURL}>
             <Icon name={IconName.Copy} />
             <span>Copy URL</span>
           </DropdownMenuItem>
