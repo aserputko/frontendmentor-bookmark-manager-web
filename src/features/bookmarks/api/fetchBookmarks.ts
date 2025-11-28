@@ -4,6 +4,7 @@ import { BookmarksResponseSchema } from '../types';
 export async function fetchBookmarks(
   page?: number,
   limit?: number,
+  sortBy?: string,
   search?: string,
   archived?: boolean,
 ): Promise<BookmarksResponse> {
@@ -21,6 +22,10 @@ export async function fetchBookmarks(
 
   if (archived !== undefined) {
     params.append('archived', String(archived));
+  }
+
+  if (sortBy !== undefined) {
+    params.append('sortBy', String(sortBy));
   }
 
   const queryString = params.toString();

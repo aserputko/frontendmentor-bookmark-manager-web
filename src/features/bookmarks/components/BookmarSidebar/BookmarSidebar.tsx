@@ -3,7 +3,6 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -65,7 +64,7 @@ export function BookmarSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {isActive('/bookmarks/all') && (
+        {/* {isActive('/bookmarks/all') && (
           <SidebarGroup>
             <SidebarGroupLabel>Tags</SidebarGroupLabel>
             <SidebarGroupContent>
@@ -95,7 +94,7 @@ export function BookmarSidebar() {
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
-        )}
+        )} */}
       </SidebarContent>
     </Sidebar>
   );

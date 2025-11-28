@@ -1,5 +1,6 @@
 export const bookmarkQueryKeys = {
   all: () => ['bookmarks', 'infinite'],
-  active: (search: string) => [...bookmarkQueryKeys.all(), search] as const,
-  archived: (search: string) => [...bookmarkQueryKeys.all(), 'archived', search] as const,
+  active: (sortBy: string, search: string) => [...bookmarkQueryKeys.all(), sortBy, search] as const,
+  archived: (sortBy: string, search: string) =>
+    [...bookmarkQueryKeys.all(), 'archived', sortBy, search] as const,
 } as const;

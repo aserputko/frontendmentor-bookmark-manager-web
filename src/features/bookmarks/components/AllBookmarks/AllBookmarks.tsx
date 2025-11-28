@@ -8,7 +8,7 @@ import { BookmarksEmptyState } from '../BookmarksEmptyState';
 import { BookmarksErrorState } from '../BookmarksErrorState';
 import { BookmarksLoadingState } from '../BookmarksLoadingState';
 
-export const AllBookmarks = () => {
+export const AllBookmarks = ({ sortBy }: { sortBy: string }) => {
   const [searchParams] = useSearchParams();
   const searchValue = searchParams.get('s') || '';
   const {
@@ -18,7 +18,7 @@ export const AllBookmarks = () => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-  } = useAllBookmarks(DEFAULT_PAGE_SIZE, searchValue);
+  } = useAllBookmarks(DEFAULT_PAGE_SIZE, sortBy, searchValue);
 
   const observerTarget = useRef<HTMLDivElement>(null);
 
