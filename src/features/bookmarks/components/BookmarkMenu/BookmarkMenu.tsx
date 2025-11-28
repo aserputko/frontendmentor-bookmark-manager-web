@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from '../../../../shared/components/ui/dropdown-menu';
 import { Icon, IconName } from '../../../../shared/components/ui/icon';
-import { useArchiveBookmark } from '../../hooks';
+import { useArchiveBookmark, usePinBookmark, useUnpinBookmark } from '../../hooks';
 import { useUnarchiveBookmark } from '../../hooks/useUnarchiveBookmark';
 import type { Bookmark } from '../../types';
 import { EditBookmarkDialog } from '../EditBookmarkDialog/EditBookmarkDialog';
@@ -20,8 +20,11 @@ export const BookmarkMenu = ({ bookmark }: BookmarkMenuProps) => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const { mutate: archiveBookmark } = useArchiveBookmark();
   const { mutate: unarchiveBookmark } = useUnarchiveBookmark();
+  const { mutate: pinBookmark } = usePinBookmark();
+  const { mutate: unpinBookmark } = useUnpinBookmark();
 
   const isArchived = bookmark.archived ?? false;
+  const isPinned = bookmark.pinned ?? false;
 
   const handleEditBookmark = () => {
     setIsEditDialogOpen(true);
@@ -33,6 +36,14 @@ export const BookmarkMenu = ({ bookmark }: BookmarkMenuProps) => {
 
   const handleUnarchiveBookmark = () => {
     unarchiveBookmark(bookmark.id);
+  };
+
+  const handlePinBookmark = () => {
+    pinBookmark(bookmark.id);
+  };
+
+  const handleUnpinBookmark = () => {
+    unpinBookmark(bookmark.id);
   };
 
   return (
@@ -50,14 +61,18 @@ export const BookmarkMenu = ({ bookmark }: BookmarkMenuProps) => {
             <Icon name={IconName.Copy} />
             <span>Copy URL</span>
           </DropdownMenuItem>
-          <DropdownMenuItem disabled>
-            <Icon name={IconName.Pin} />
-            <span>Pin</span>
-          </DropdownMenuItem>
-          {/* <DropdownMenuItem disabled>
-          <Icon name={IconName.PinOff} />
-          <span>Unpin</span>
-        </DropdownMenuItem> */}
+          {!isPinned && (
+            <DropdownMenuItem onSelect={handlePinBookmark}>
+              <Icon name={IconName.Pin} />
+              <span>Pin</span>
+            </DropdownMenuItem>
+          )}
+          {isPinned && (
+            <DropdownMenuItem onSelect={handleUnpinBookmark}>
+              <Icon name={IconName.PinOff} />
+              <span>Unpin</span>
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem onSelect={handleEditBookmark}>
             <Icon name={IconName.Edit} />
             <span>Edit</span>
