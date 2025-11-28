@@ -10,6 +10,7 @@ import { Icon, IconName } from '../../../../shared/components/ui/icon';
 import {
   useArchiveBookmark,
   useCopyBookmarkURL,
+  useDeleteBookmark,
   usePinBookmark,
   useUnpinBookmark,
   useVisitBookmark,
@@ -30,6 +31,7 @@ export const BookmarkMenu = ({ bookmark }: BookmarkMenuProps) => {
   const { mutate: unpinBookmark } = useUnpinBookmark();
   const { copyToClipboard } = useCopyBookmarkURL();
   const { mutate: visitBookmark } = useVisitBookmark();
+  const { mutate: deleteBookmark } = useDeleteBookmark();
 
   const isArchived = bookmark.archived ?? false;
   const isPinned = bookmark.pinned ?? false;
@@ -60,6 +62,10 @@ export const BookmarkMenu = ({ bookmark }: BookmarkMenuProps) => {
 
   const handleVisitBookmark = () => {
     visitBookmark({ id: bookmark.id, websiteURL: bookmark.websiteURL });
+  };
+
+  const handleDeleteBookmark = () => {
+    deleteBookmark(bookmark.id);
   };
 
   return (
@@ -108,9 +114,9 @@ export const BookmarkMenu = ({ bookmark }: BookmarkMenuProps) => {
             </DropdownMenuItem>
           )}
           {isArchived && (
-            <DropdownMenuItem disabled>
+            <DropdownMenuItem onSelect={handleDeleteBookmark}>
               <Icon name={IconName.Trash} />
-              <span>Delete Permenantly</span>
+              <span>Delete Permanently</span>
             </DropdownMenuItem>
           )}
         </DropdownMenuContent>

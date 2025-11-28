@@ -1,5 +1,6 @@
 export * from './addBookmark';
 export * from './archiveBookmark';
+export * from './deleteBookmark';
 export * from './editBookmark';
 export * from './fetchAllBookmarks';
 export * from './pinBookmark';
