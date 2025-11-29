@@ -68,7 +68,7 @@ describe('useAllBookmarks', () => {
     await waitFor(() => expect(screen.getByTestId('count')).toHaveTextContent('1'));
 
     expect(fetchBookmarks).toHaveBeenCalledTimes(1);
-    expect(fetchBookmarks).toHaveBeenCalledWith(1, 12, ''); // initialPageParam, default limit, and empty searchValue
+    expect(fetchBookmarks).toHaveBeenCalledWith(1, 12, 'recently-added', ''); // initialPageParam, default limit, default sortBy, and empty searchValue
   });
 
   it('exposes error state on failure', async () => {

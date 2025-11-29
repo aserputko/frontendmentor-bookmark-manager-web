@@ -51,7 +51,7 @@ describe('AllBookmarks', () => {
       isFetchingNextPage: false,
     });
 
-    renderWithClient(<AllBookmarks />);
+    renderWithClient(<AllBookmarks sortBy="recently-added" />);
     expect(screen.getByText(/loading bookmarks/i)).toBeInTheDocument();
   });
 
@@ -65,7 +65,7 @@ describe('AllBookmarks', () => {
       isFetchingNextPage: false,
     });
 
-    renderWithClient(<AllBookmarks />);
+    renderWithClient(<AllBookmarks sortBy="recently-added" />);
     expect(screen.getByText(/something went wrong/i)).toBeInTheDocument();
   });
 
@@ -79,7 +79,7 @@ describe('AllBookmarks', () => {
       isFetchingNextPage: false,
     });
 
-    renderWithClient(<AllBookmarks />);
+    renderWithClient(<AllBookmarks sortBy="recently-added" />);
     expect(screen.getByText(/no bookmarks yet/i)).toBeInTheDocument();
   });
 
@@ -103,7 +103,7 @@ describe('AllBookmarks', () => {
       isFetchingNextPage: false,
     });
 
-    renderWithClient(<AllBookmarks />);
+    renderWithClient(<AllBookmarks sortBy="recently-added" />);
     expect(screen.getByTestId('bookmark-1')).toHaveTextContent('Bookmark One');
     expect(screen.getByTestId('bookmark-2')).toHaveTextContent('Bookmark Two');
   });

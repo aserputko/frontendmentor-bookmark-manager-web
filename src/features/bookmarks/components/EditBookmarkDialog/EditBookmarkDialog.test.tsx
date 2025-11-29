@@ -1,10 +1,10 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render } from '@testing-library/react';
 import { screen, waitFor } from '@testing-library/dom';
+import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
-import { EditBookmarkDialog } from './EditBookmarkDialog';
 import type { Bookmark } from '../../types';
+import { EditBookmarkDialog } from './EditBookmarkDialog';
 
 jest.mock('../../hooks', () => ({
   useEditBookmark: jest.fn(),
@@ -58,11 +58,7 @@ describe('EditBookmarkDialog', () => {
 
   it('renders dialog with edit title and informer', () => {
     renderWithClient(
-      <EditBookmarkDialog
-        open={true}
-        onOpenChange={mockOnOpenChange}
-        bookmark={mockBookmark}
-      />,
+      <EditBookmarkDialog open={true} onOpenChange={mockOnOpenChange} bookmark={mockBookmark} />,
     );
 
     expect(screen.getByRole('dialog')).toBeInTheDocument();
@@ -76,11 +72,7 @@ describe('EditBookmarkDialog', () => {
 
   it('pre-populates form with bookmark data', () => {
     renderWithClient(
-      <EditBookmarkDialog
-        open={true}
-        onOpenChange={mockOnOpenChange}
-        bookmark={mockBookmark}
-      />,
+      <EditBookmarkDialog open={true} onOpenChange={mockOnOpenChange} bookmark={mockBookmark} />,
     );
 
     expect(screen.getByDisplayValue('My Bookmark')).toBeInTheDocument();
@@ -106,11 +98,7 @@ describe('EditBookmarkDialog', () => {
 
   it('shows Save Bookmark button', () => {
     renderWithClient(
-      <EditBookmarkDialog
-        open={true}
-        onOpenChange={mockOnOpenChange}
-        bookmark={mockBookmark}
-      />,
+      <EditBookmarkDialog open={true} onOpenChange={mockOnOpenChange} bookmark={mockBookmark} />,
     );
 
     expect(screen.getByRole('button', { name: /save bookmark/i })).toBeInTheDocument();
@@ -121,11 +109,7 @@ describe('EditBookmarkDialog', () => {
     mockMutateAsync.mockResolvedValueOnce(undefined);
 
     renderWithClient(
-      <EditBookmarkDialog
-        open={true}
-        onOpenChange={mockOnOpenChange}
-        bookmark={mockBookmark}
-      />,
+      <EditBookmarkDialog open={true} onOpenChange={mockOnOpenChange} bookmark={mockBookmark} />,
     );
 
     const titleInput = screen.getByLabelText(/title/i);
@@ -148,11 +132,7 @@ describe('EditBookmarkDialog', () => {
     mockMutateAsync.mockRejectedValueOnce(new Error('API Error'));
 
     renderWithClient(
-      <EditBookmarkDialog
-        open={true}
-        onOpenChange={mockOnOpenChange}
-        bookmark={mockBookmark}
-      />,
+      <EditBookmarkDialog open={true} onOpenChange={mockOnOpenChange} bookmark={mockBookmark} />,
     );
 
     const submitButton = screen.getByRole('button', { name: /save bookmark/i });
@@ -173,11 +153,7 @@ describe('EditBookmarkDialog', () => {
     });
 
     renderWithClient(
-      <EditBookmarkDialog
-        open={true}
-        onOpenChange={mockOnOpenChange}
-        bookmark={mockBookmark}
-      />,
+      <EditBookmarkDialog open={true} onOpenChange={mockOnOpenChange} bookmark={mockBookmark} />,
     );
 
     const submitButton = screen.getByRole('button', { name: /save bookmark/i });
@@ -186,11 +162,7 @@ describe('EditBookmarkDialog', () => {
 
   it('converts tags array to comma-separated string', () => {
     renderWithClient(
-      <EditBookmarkDialog
-        open={true}
-        onOpenChange={mockOnOpenChange}
-        bookmark={mockBookmark}
-      />,
+      <EditBookmarkDialog open={true} onOpenChange={mockOnOpenChange} bookmark={mockBookmark} />,
     );
 
     const tagsInput = screen.getByLabelText(/tags/i) as HTMLInputElement;
@@ -212,4 +184,3 @@ describe('EditBookmarkDialog', () => {
     expect(tagsInput.value).toBe('');
   });
 });
-
